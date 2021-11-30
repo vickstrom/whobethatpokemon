@@ -1,32 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-import Jimp from 'jimp';
 import { useEffect, useState } from 'react';
+import pokeAPI from './utils/pokeapi.js';
+import ImageProcessing from './utils/image-processing';
 
 function App() {
 
-  const [imgData, setImageData] = useState()
+  const [imageData, setImageData] = useState();
+  const [modifiedImageData, setModifiedImageData] = useState();
 
   useEffect(() => {
-    Jimp.read("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png").then(image => {
-
-      image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-          image.bitmap.data[idx] = 86;
-          image.bitmap.data[idx + 1] = 101;
-          image.bitmap.data[idx + 2] = 115;
-          image.bitmap.data[idx + 3] = image.bitmap.data[idx + 3];
-      });
-      image.getBase64Async(Jimp.MIME_PNG).then(newImage => { 
-        let tag = document.createElement("img");
-        setImageData(newImage);
+    pokeAPI.getPokemon(4).then(res => {
+      const img = res.data.sprites.other["official-artwork"]["front_default"];
+      setImageData(img);
+      ImageProcessing.getImageInSolidColor(img, 111, 111, 111).then(imgData => {
+        setModifiedImageData(imgData);
       })
-    })  
-  }, [])
+    })
+  }, []);
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" />
-        <img src={imgData}  />
+        <img src={imageData}  />
+        <img src={modifiedImageData}  />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
