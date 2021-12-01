@@ -2,6 +2,15 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
+import Home from './pages/home';
+import Play from './pages/play';
+import Header from './components/view/header';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
 
 function App() {
 
@@ -23,6 +32,19 @@ function App() {
       <header className="App-header">
         <img src={imageData}  />
         <img src={modifiedImageData}  />
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={
+              <Home />
+            } />
+            <Route path="/play" element={
+              <Play />
+            }> 
+            </Route>
+          </Routes>
+        </Router>
+
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
