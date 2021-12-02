@@ -1,6 +1,6 @@
 import LoginView from '../components/view/login'
 
-export default function Home() {
+export default function HomePresenter() {
     return (
         <LoginView /> 
     )

@@ -2,8 +2,9 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
-import Home from './pages/home';
-import Play from './pages/play';
+import HomePresenter from './presenters/homePresenter';
+import PlayPresenter from './presenters/playPresenter';
+import RoomSelectorPresenter from './presenters/roomSelectorPresenter';
 import Header from './components/view/header';
 
 import {
@@ -32,16 +33,20 @@ function App() {
       <header className="App-header">
         <img src={imageData}  />
         <img src={modifiedImageData}  />
+      </header>
+      <div className="App-body">
         <Router>
           <Header />
           <Routes>
             <Route path="/" element={
-              <Home />
+              <HomePresenter />
             } />
             <Route path="/play" element={
-              <Play />
-            }> 
-            </Route>
+              <PlayPresenter />
+            } /> 
+            <Route path="/rooms" element={
+              <RoomSelectorPresenter />
+            } /> 
           </Routes>
         </Router>
 
@@ -56,7 +61,7 @@ function App() {
         >
           Learn React 
         </a>
-      </header>
+        </div>
     </div>
   );
 }
