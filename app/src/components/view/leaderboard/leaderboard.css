@@ -1,4 +1,8 @@
 .leaderboard {
     text-align: left;
-    background-color: blue;
+    background-color: darkred;
+}
+
+.right {
+    text-align: right;
 }
