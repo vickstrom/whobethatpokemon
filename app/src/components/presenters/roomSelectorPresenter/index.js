@@ -1,6 +1,6 @@
-import SearchRoomView from '../components/view/searchRoom'
-import RoomResultsView from '../components/view/roomResults'
-import CreateRoomView from '../components/view/createRoom'
+import SearchRoomView from '../../view/searchRoom';
+import RoomResultsView from '../../view/roomResults';
+import CreateRoomView from '../../view/createRoom';
 
 export default function RoomSelectorPresenter() {
     return (
