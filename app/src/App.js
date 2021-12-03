@@ -3,6 +3,16 @@ import { useEffect, useState } from 'react';
 import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
 import DatabaseHandler from './utils/database-handler'
+import HomePresenter from './components/presenters/homePresenter';
+import PlayPresenter from './components/presenters/playPresenter';
+import RoomSelectorPresenter from './components/presenters/roomSelectorPresenter';
+import Header from './components/view/header';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
 
 function App() {
 
@@ -24,6 +34,23 @@ function App() {
       <header className="App-header">
         <img src={imageData}  />
         <img src={modifiedImageData}  />
+      </header>
+      <div className="App-body">
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={
+              <HomePresenter />
+            } />
+            <Route path="/play" element={
+              <PlayPresenter />
+            } /> 
+            <Route path="/rooms" element={
+              <RoomSelectorPresenter />
+            } /> 
+          </Routes>
+        </Router>
+
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -35,7 +62,7 @@ function App() {
         >
           Learn React 
         </a>
-      </header>
+        </div>
     </div>
   );
 }
