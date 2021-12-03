@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
+import DatabaseHandler from './utils/database-handler'
 
 function App() {
 
