@@ -2,9 +2,9 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
-import HomePresenter from './presenters/homePresenter';
-import PlayPresenter from './presenters/playPresenter';
-import RoomSelectorPresenter from './presenters/roomSelectorPresenter';
+import HomePresenter from './components/presenters/homePresenter';
+import PlayPresenter from './components/presenters/playPresenter';
+import RoomSelectorPresenter from './components/presenters/roomSelectorPresenter';
 import Header from './components/view/header';
 
 import {

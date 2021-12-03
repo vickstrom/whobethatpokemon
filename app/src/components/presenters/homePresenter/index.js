@@ -1,4 +1,4 @@
-import LoginView from '../components/view/login'
+import LoginView from '../../view/login';
 
 export default function HomePresenter() {
     return (

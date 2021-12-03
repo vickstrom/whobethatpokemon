@@ -1,4 +1,4 @@
-import './createRoom.css'
+import './createRoom.css';
 
 export default function CreateRoomView() {
     return (
