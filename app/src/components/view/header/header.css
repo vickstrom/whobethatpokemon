@@ -1,0 +1,15 @@
+.btn {
+    background-color: darkred; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 70px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    margin-left: 30px;
+    margin-block: 30px;
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color: rgb(66, 0, 0);
+  }

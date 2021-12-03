@@ -4,15 +4,15 @@
     grid-template-columns: 300px 300px;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    background-color: magenta;
+    background-color: rgb(179, 51, 51);
     padding: 10px;
 }
 
 .grid-item {
     background-color: pink;
-    color: black;
+    color: rgb(66, 0, 0);
 }
 
 .grid-item:hover {
-    background-color: red;
+    background-color: darkred;
 }

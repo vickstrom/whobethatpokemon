@@ -5,12 +5,12 @@ export default function RoomResultsView() {
         <div className={'roomResults'}>
             <table>
                 <tr>
-                    <th>Room name:</th>
-                    <th>Players:</th>
+                    <th className={'itemRight'}>Room name:</th>
+                    <th className={'itemLeft'}>Players:</th>
                 </tr>
                 <tr>
-                    <td>cool room</td>
-                    <td>2/10</td>
+                    <td className={'itemRight'}>cool room</td>
+                    <td className={'itemLeft'}>2/10</td>
                 </tr>
             </table>
         </div>
