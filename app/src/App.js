@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
-//import DatabaseHandler from './utils/database-handler'
+import DatabaseHandler from './utils/database-handler'
 import HomePresenter from './components/presenters/homePresenter';
 import PlayPresenter from './components/presenters/playPresenter';
 import RoomSelectorPresenter from './components/presenters/roomSelectorPresenter';
