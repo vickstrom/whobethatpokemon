@@ -26,9 +26,9 @@ export default class Room {
     guess(name, playerId) {
         this.currentPicture = this.answerPicture;
         if(name === this.correctAnswer.name) {
-            return true;
+            return [true, this.correctAnswer.name];
         } else {
-            return false;
+            return [false, this.correctAnswer.name];
         }
     }
 

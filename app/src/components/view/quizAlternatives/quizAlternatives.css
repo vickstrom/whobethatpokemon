@@ -14,6 +14,14 @@
     color: black;
 }
 
-.grid-item:hover {
+.neutral:hover {
+    background-color: gold;
+}
+
+.correct {
+    background-color: green;
+}
+
+.incorrect {
     background-color: red;
 }
