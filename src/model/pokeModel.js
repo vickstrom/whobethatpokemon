@@ -32,8 +32,6 @@ export default class PokeModel{
     }
 
     addNewTrainer(name, id){
-        console.log('epic trainer added');
-        console.log(this.trainers);
         const trainer = {id: id, name: name, points: 0};
         this.trainers[id] = trainer;
         this.notifyObservers();
@@ -52,13 +50,9 @@ export default class PokeModel{
 
     addTrainerToRoom(trainerId, roomId){
         // Very non-functional atm
-        console.log('current room:', this.rooms[roomId]);
-        console.log('rooms', this.rooms);
-        console.log('roomId', roomId);
         this.rooms[roomId].trainers.push(this.trainers[trainerId]);
         // this.rooms[roomId].numberOfTrainers++;
         this.notifyObservers();
-        console.log(this.rooms);
     }
 
     addRoom(room){
@@ -75,6 +69,7 @@ export default class PokeModel{
         this.notifyObservers();
     }
 
+    // Returns [boolean, string]
     guess(roomId, name) {
         return this.rooms[roomId].guess(name);
     }
@@ -88,7 +83,6 @@ export default class PokeModel{
     }
 
     notifyObservers(){
-        console.log('observers', this.observers);
         this.observers.forEach(cb=> cb(this));
     }
 }
