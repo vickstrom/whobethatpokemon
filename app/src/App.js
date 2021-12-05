@@ -14,7 +14,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-function App() {
+function App(props) {
 
   const [imageData, setImageData] = useState();
   const [modifiedImageData, setModifiedImageData] = useState();
@@ -31,37 +31,21 @@ function App() {
   
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={imageData}  />
-        <img src={modifiedImageData}  />
-      </header>
       <div className="App-body">
         <Router>
           <Header />
           <Routes>
             <Route path="/" element={
-              <HomePresenter />
+              <HomePresenter model={props.model}/>
             } />
             <Route path="/play" element={
-              <PlayPresenter />
+              <PlayPresenter model={props.model}/>
             } /> 
             <Route path="/rooms" element={
-              <RoomSelectorPresenter />
+              <RoomSelectorPresenter model={props.model}/>
             } /> 
           </Routes>
         </Router>
-
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React 
-        </a>
         </div>
     </div>
   );
