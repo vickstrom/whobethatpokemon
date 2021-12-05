@@ -6,8 +6,8 @@ import LeaderBoardView from "../../view/leaderboard";
 
 export default function PlayPresenter(props) {
     const [currentRoom, setCurrentRoom] = useState(props.model.getRoom(props.model.currentRoomId));
-    const defaultColors = ["grey", "grey", "grey", "grey"]; 
-    const [alternativesColors, setAlternativesColors] = useState(["grey", "grey", "grey", "grey"]);
+    const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
+    const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
     const [waiting, setWaiting] = useState(false);
 
     useEffect(() => {
@@ -24,17 +24,20 @@ export default function PlayPresenter(props) {
             </div>
             <QuizAlternativesView 
                 alternatives={currentRoom.getAlternativesNames()}
-                alternativesColors={alternativesColors}
+                answerClasses={answerClasses}
                 onGuess={(name, index) => {
                     if (waiting) return;
                     setWaiting(true);
-                    let correct = props.model.guess(props.model.currentRoomId, name);
-                    var newColors = [...alternativesColors];
-                    newColors[index] = correct ? "green" : "red";
-                    setAlternativesColors(newColors);
+                    let [correct, correctName] = props.model.guess(props.model.currentRoomId, name);
+                    let correctIndex = currentRoom.getAlternativesNames().indexOf(correctName);
+                    var newAnswerClasses = [...answerClasses];
+                    newAnswerClasses[index] = correct ? "correct" : "incorrect";
+                    // Correct answer should always be green
+                    newAnswerClasses[correctIndex] = "correct";
+                    setAnswerClasses(newAnswerClasses);
                     setTimeout(async () => {
                         await props.model.newRound(props.model.currentRoomId);
-                        setAlternativesColors(defaultColors);
+                        setAnswerClasses(defaultAnswerClasses);
                         setWaiting(false);
                     }, 2000);
                 }}/>

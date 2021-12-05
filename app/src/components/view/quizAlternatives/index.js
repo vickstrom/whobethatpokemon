@@ -7,8 +7,7 @@ export default function QuizAlternativesView(props) {
                 return (<div 
                     key={name}
                     onClick={e => props.onGuess(name, index)}
-                    style={{'backgroundColor': props.alternativesColors[index]}}
-                    className={'grid-item'}>
+                    className={`${props.answerClasses[index]} grid-item`}>
                         {name}
                         </div>);
             })}
