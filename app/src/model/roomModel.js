@@ -10,12 +10,7 @@ export default class Room {
     }
     
     async newRound() {
-        let alternativesIds = [];
-        // Generate random pokemon ids
-        for (var i = 0; i < 4; i++) {
-            alternativesIds.push(between(1, 100));
-        }
-        console.log(alternativesIds);
+        let alternativesIds = getRandomdIds(4);
         let alternativesPromise = await Promise.all(
             [pokeAPI.getPokemon(alternativesIds[0]),
              pokeAPI.getPokemon(alternativesIds[1]),
@@ -28,7 +23,7 @@ export default class Room {
         this.currentPicture = this.questionPicture;
     }
 
-    guess(name) {
+    guess(name, playerId) {
         this.currentPicture = this.answerPicture;
         if(name === this.correctAnswer.name) {
             return true;
@@ -45,6 +40,16 @@ export default class Room {
         return this.currentPicture;
     }
 }
+
+const getRandomdIds = (num_ids) => {
+    const ids = []
+    while (ids.length < num_ids) {
+        const val = Math.floor(Math.random() * 151 + 1)
+        if (ids.filter((v) => v === val).length === 0)
+            ids.push(val);
+    }
+    return ids;
+  }
 
 function between(min, max) {  
     return Math.floor(
