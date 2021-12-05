@@ -1,0 +1,25 @@
+
+.home {
+    display: flex; 
+    height: 100%;
+}
+
+.home > div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+
+.home > div > .intro {
+    text-align: left;
+    width: 80%;
+    padding: 40px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    color: grey;
+    font-size: 24px;
+    font-weight: 500;
+}
+
