@@ -1,12 +1,14 @@
+import './login.css';
 
-import './login.css'
-
-export default function LoginView() {
+export default function LoginView(props) {
     return (
         <div className={'login'}>
             <p>Choose your trainer tag:</p>
-            <input placeholder={'name'} />
-            <button>Play</button>
+            <input onChange={e => props.onText(e.target.value)}
+                   placeholder={'name'}
+                   type='text'>
+            </input>
+            <button onClick={e => props.onPlay()}>Play</button>
         </div>
 
     )
