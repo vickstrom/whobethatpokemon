@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import PokeModel from './PokeModel'
 
+const model = new PokeModel();
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App model={model}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

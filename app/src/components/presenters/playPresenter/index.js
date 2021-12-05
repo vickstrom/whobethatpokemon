@@ -6,7 +6,7 @@ import ImageProcessing from '../../../utils/image-processing';
 import { useEffect, useState } from 'react';
 import LeaderBoardView from "../../view/leaderboard";
 
-export default function PlayPresenter() {
+export default function PlayPresenter(props) {
     const [imageData, setImageData] = useState();
     const [modifiedImageData, setModifiedImageData] = useState();
 
@@ -29,7 +29,8 @@ export default function PlayPresenter() {
                     [{name: "Kalle", points: 1337}, {name: "Kungen", points: -1}]
                 } />
             </div>
-            <QuizAlternativesView alternatives={["Pikachu", "Mewtwo", "Kalle", "Digimon"]}/>
+            <QuizAlternativesView alternatives={["Pikachu", "Mewtwo", "Kalle", "Digimon"]}
+                onAlternative={e => {props.model.setAnswer(e)}}/>
         </div>
     )
 }
