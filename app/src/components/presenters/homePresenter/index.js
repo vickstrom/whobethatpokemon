@@ -1,10 +1,12 @@
 import LoginView from '../../view/login';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './home.css';
-import Youtube from '../../view/youtube'
+import Youtube from '../../view/youtube';
 
-export default function HomePresenter() {
-
-
+export default function HomePresenter(props) {
+    const [name, setName] = useState('');
+    const navigate = useNavigate();
 
     return (
         <div className={'home'}>
@@ -16,10 +18,13 @@ export default function HomePresenter() {
                 </div>
             </div>
             <div>
-                <LoginView /> 
+                <LoginView 
+                    onPlay={() => {
+                        props.model.localPlayerSignIn(name);
+                        navigate('/rooms');
+                    }}
+                    onText={text => setName(text)}/> 
             </div>
         </div>
     )
 }
-/*
-            */

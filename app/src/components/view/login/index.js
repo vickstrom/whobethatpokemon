@@ -1,10 +1,9 @@
-
-import './login.css'
+import './login.css';
 import pokeAPI from '../../../utils/pokeapi';
 import ImageProcessing from '../../../utils/image-processing';
 import {useState, useEffect} from 'react';
 
-export default function LoginView() {
+export default function LoginView(props) {
     const [pokemonImage, setPokemonImage] = useState("");
     const [hiddenPokemonImage, setHiddenPokemonImage] = useState("");
 
@@ -28,8 +27,10 @@ export default function LoginView() {
             <p>Please login</p>
             <button>Google Account</button>
             <p>or be</p>
-            <button>Anonymous</button>
-        </div>
-
-    )
+            <input onChange={e => props.onText(e.target.value)}
+                   placeholder={'name'}
+                   type='text'>
+            </input>
+            <button onClick={e => props.onPlay()}>Anonymous</button>
+        </div>)
 }

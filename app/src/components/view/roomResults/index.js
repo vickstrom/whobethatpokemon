@@ -1,18 +1,15 @@
 import './roomResults.css'
 
-export default function RoomResultsView() {
+export default function RoomResultsView(props) {
     return (
         <div className={'roomResults'}>
-            <table>
-                <tr>
-                    <th>Room name:</th>
-                    <th>Players:</th>
-                </tr>
-                <tr>
-                    <td>cool room</td>
-                    <td>2/10</td>
-                </tr>
-            </table>
+            {Object.values(props.rooms).map(room => {
+                return (<div key={room.id}> 
+                    <span>{room.name}</span>
+                    <span>{room.players}</span>
+                    <button onClick={e => props.onJoin(room.id)}>Join</button>
+                    </div>)
+            })}
         </div>
 
     )

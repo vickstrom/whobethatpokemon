@@ -1,4 +1,3 @@
-
 import API from './api.js';
 
 export default class pokeAPI {

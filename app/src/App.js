@@ -14,7 +14,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-function App() {
+function App(props) {
 
   const [imageData, setImageData] = useState();
   const [modifiedImageData, setModifiedImageData] = useState();
@@ -36,13 +36,13 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={
-              <HomePresenter />
+              <HomePresenter model={props.model}/>
             } />
             <Route path="/play" element={
-              <PlayPresenter />
+              <PlayPresenter model={props.model}/>
             } /> 
             <Route path="/rooms" element={
-              <RoomSelectorPresenter />
+              <RoomSelectorPresenter model={props.model}/>
             } /> 
           </Routes>
         </Router>
