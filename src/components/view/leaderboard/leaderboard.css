@@ -1,4 +1,11 @@
 .leaderboard {
     text-align: left;
-    background-color: blue;
+    background-color: white;
+    color: grey;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.leaderboard > table > tr:nth-child(even){
+    background-color: rgba(110, 110, 110, 0.1); 
 }
