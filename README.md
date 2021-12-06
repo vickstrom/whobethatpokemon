@@ -19,10 +19,10 @@ src/
     img/ - background image and logos
     model/
         pokeModel.js - file with data for the user and available rooms etc. 
-        roomModel.js - file with data for the  
+        roomModel.js - file with data for handling the game rooms 
     utils/
         - api.js - axios link to the API
-        - pokeapi.js - endpoints for pokeapi with
+        - pokeapi.js - endpoints for pokeapi with helper functions
         - database-handler.json - networking endpoints for future multiplayer
         - image-processing.js - effects that hide the identity of a pokémon
 ```
