@@ -4,18 +4,21 @@
     grid-template-columns: 300px 300px;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    background-color: magenta;
+    background-color: rgb(120,120,120, 0.2);
     padding: 10px;
     justify-content: center;
+    font-weight: 500;
 }
 
 .grid-item {
-    background-color: pink;
-    color: black;
+    background-color: lightgray;
+    color: white;
+    transition: background-color 0.5s ease;
 }
 
 .neutral:hover {
-    background-color: gold;
+    background-color: darkgrey; 
+    cursor: pointer;
 }
 
 .correct {
