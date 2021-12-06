@@ -14,8 +14,10 @@ src/
     index.js - the initialization file for the Pokémodel
     App.js - the route file for different pages
     components/
-        presenters/ several views with state
-        views/ - visual elements with no state 
+        presenters/ - Several views with state.
+                      A presenter consists of a directory which contains index.js and a CSS style file.
+        views/ - Visual elements with no state.
+                 A view consists of a directory which contains index.js and a CSS style file.
     img/ - background image and logos
     model/
         pokeModel.js - file with data for the user and available rooms etc. 
