@@ -67,6 +67,8 @@ export default class PokeModel{
         //this.notifyObservers();
     }
 
+    
+
     addObserver(callback){
         this.observers = [...this.observers].push(callback);
     }

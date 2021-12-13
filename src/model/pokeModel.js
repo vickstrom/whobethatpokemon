@@ -44,13 +44,18 @@ export default class PokeModel{
     }
 
     joinRoom(trainerId, roomId) {
+        this.trainer = trainerId;
         this.addTrainerToRoom(trainerId, roomId);
         this.currentRoomId = roomId;
     }
 
     addTrainerToRoom(trainerId, roomId){
         // Very non-functional atm
-        this.rooms[roomId].trainers.push(this.trainers[trainerId]);
+        const trainer = this.trainers[trainerId]
+        trainer.points = 0
+        this.rooms[roomId].trainers.push(trainer);
+        console.log(this.rooms[roomId].trainers)
+        this.rooms[roomId].updateLeaderBoard();
         // this.rooms[roomId].numberOfTrainers++;
         this.notifyObservers();
     }
@@ -70,9 +75,12 @@ export default class PokeModel{
     }
 
     // Returns [boolean, string]
-    guess(roomId, name) {
-        return this.rooms[roomId].guess(name);
+    guess(roomId, name, trainerId) {
+        const guess = this.rooms[roomId].guess(name, trainerId);
+        this.notifyObservers();
+        return guess;
     }
+
 
     addObserver(callback){
         this.observers = [...this.observers, callback];

@@ -9,18 +9,18 @@ export default function PlayPresenter(props) {
     const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
     const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
     const [waiting, setWaiting] = useState(false);
+    //const [leaderBoard, setLeaderBoard] = useState(props.model.getRoom(props.model.currentRoomId).leaderBoard)
 
     useEffect(() => {
         props.model.addObserver(() => setCurrentRoom(props.model.getRoom(props.model.currentRoomId)));
-    }, []);
+    }, [props.model]);
 
+    console.log(currentRoom.leaderBoard)
     return (
         <div>
             <div className={'mainView'}>
                 <WhoPokemonView image={currentRoom.getCurrentImage() || 'http://www.csc.kth.se/~cristi/loading.gif'} />
-                <LeaderBoardView leaderboard={
-                    [{name: "Kalle", points: 1337}, {name: "Kungen", points: -1}]
-                } />
+                <LeaderBoardView leaderboard={currentRoom.leaderBoard} />
             </div>
             <QuizAlternativesView 
                 alternatives={currentRoom.getAlternativesNames()}
@@ -28,7 +28,7 @@ export default function PlayPresenter(props) {
                 onGuess={(name, index) => {
                     if (waiting) return;
                     setWaiting(true);
-                    let [correct, correctName] = props.model.guess(props.model.currentRoomId, name);
+                    let [correct, correctName] = props.model.guess(props.model.currentRoomId, name, props.model.myId);
                     let correctIndex = currentRoom.getAlternativesNames().indexOf(correctName);
                     var newAnswerClasses = [...answerClasses];
                     newAnswerClasses[index] = correct ? "correct" : "incorrect";

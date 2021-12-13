@@ -7,6 +7,8 @@ export default class Room {
         this.name = name;
         this.trainers = [];
         this.newRound();
+        this.leaderBoard = [];
+        this.observers = [];
     }
     
     async newRound() {
@@ -23,13 +25,25 @@ export default class Room {
         this.currentPicture = this.questionPicture;
     }
 
-    guess(name, playerId) {
+    guess(name, trainerId) {
         this.currentPicture = this.answerPicture;
         if(name === this.correctAnswer.name) {
+            this.increasePoints(trainerId);
+            this.updateLeaderBoard();
+            console.log(this.leaderBoard)
             return [true, this.correctAnswer.name];
+
         } else {
             return [false, this.correctAnswer.name];
         }
+    }
+
+    updateLeaderBoard(){
+        if(this.leaderBoard.length >= 1){return}
+        const leaderBoard = [...this.trainers].sort(compareScore);
+        console.log(leaderBoard)
+        this.leaderBoard = leaderBoard;
+        
     }
 
     getAlternativesNames() {
@@ -38,6 +52,14 @@ export default class Room {
 
     getCurrentImage() {
         return this.currentPicture;
+    }
+
+    increasePoints(trainerId){
+        //console.log(this.trainers[trainerIndex])
+        const trainerIndex = this.trainers.findIndex(e => e.id === trainerId);
+        const newpoints = this.trainers[trainerIndex].points + 1;
+        this.trainers[trainerIndex].points = newpoints;
+        console.log(this.trainers[trainerIndex])
     }
 }
 
@@ -55,4 +77,16 @@ function between(min, max) {
     return Math.floor(
         Math.random() * (max - min) + min
     )
+}
+
+function compareScore(a,b){
+    if(a.points < b.points)
+    return -1;
+ else if(a.points > b.points)
+     return 1;
+ if(a.name < b.name)
+     return -1;
+ else if(a.name > b.name)
+     return 1;
+ throw console.error("this is bad");
 }
