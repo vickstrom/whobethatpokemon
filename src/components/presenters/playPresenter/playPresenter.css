@@ -1,8 +1,20 @@
 .mainView {
     display: flex;
-    background-color: pink;
+}
+
+.play {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.play-split {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    max-width: 60%;
 }
