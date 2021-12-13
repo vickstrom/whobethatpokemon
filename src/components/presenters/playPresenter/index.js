@@ -5,7 +5,13 @@ import { useEffect, useState } from 'react';
 import LeaderBoardView from "../../view/leaderboard";
 
 export default function PlayPresenter(props) {
-    const [currentRoom, setCurrentRoom] = useState(props.model.getRoom(props.model.currentRoomId));
+    const [trainers, setTrainers] = useState(props.roomModel.trainers);
+    const [leaderBoard, setLeaderBoard] = useState(props.roomModel.leaderBoard);
+    const [alternatives, setAlternatives] = useState(props.roomModel.alternatives);
+    const [picture, setPicture] = useState(props.roomModel.currentPicture);
+    const [alternatives, setAlternatives] = useState(props.roomModel.alternatives);
+    const [alternatives, setAlternatives] = useState(props.roomModel.alternatives);
+
     const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
     const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
     const [waiting, setWaiting] = useState(false);

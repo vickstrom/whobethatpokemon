@@ -1,7 +1,7 @@
 import pokeAPI from "../utils/pokeapi";
 import ImageProcessing from '../utils/image-processing';
 
-export default class Room {
+export default class RoomModel {
     constructor(id, name) {
         this.id = id;
         this.name = name;
@@ -61,6 +61,7 @@ export default class Room {
         this.trainers[trainerIndex].points = newpoints;
         console.log(this.trainers[trainerIndex])
     }
+
 }
 
 const getRandomdIds = (num_ids) => {

@@ -4,11 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PokeModel from './model/pokeModel';
+import RoomModel from './model/roomModel';
 
 const pokeModel = new PokeModel();
+const roomModel = new RoomModel();
 ReactDOM.render(
   <React.StrictMode>
-    <App model={pokeModel}/>
+    <App 
+    pokeModel={pokeModel}
+    roomModel={roomModel}
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );
