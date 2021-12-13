@@ -19,12 +19,22 @@ export default function RoomSelectorPresenter(props) {
             if (snapshot.exists()) {
                 const rooms = snapshot.val();
                 const rooms_ids = Object.keys(snapshot.val());
+                props.model.rooms = [];
                 for (let i = 0; i < rooms_ids.length; i++) {
                     const room_id = rooms_ids[i];
                     props.model.addRoom(new Room(props.model.databaseHandler, room_id, rooms[room_id].title)); 
                 }
             }
+        }).then((unsub) => {
+            props.model.setUnsubscribeRoomsHandler(unsub);
+            
         });
+
+        
+
+
+
+
     }, []); 
     return (
         <div>
@@ -33,6 +43,8 @@ export default function RoomSelectorPresenter(props) {
                     <div className={'intro'}>
                         <CreateRoomView 
                             onSubmit={(e) => {
+                                console.log("yoo");
+                                props.model.databaseHandler.createRoom(createRoomInput);
 
                             }}
                             onChange={(e) => {
@@ -49,6 +61,7 @@ export default function RoomSelectorPresenter(props) {
                         rooms={rooms}
                         onJoin={(roomId) => {
                             setSelectedRoomId(roomId);
+                            props.model.unsubscribeToRooms();
                             props.model.joinRoom(props.model.databaseHandler.user.uid, roomId);
                             navigate('/play');
                         }

@@ -7,8 +7,8 @@ import LeaderBoardView from "../../view/leaderboard";
 export default function PlayPresenter(props) {
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
     const [alternatives, setAlternatives] = useState(props.model.currentRoom.alternatives);
-    const [picture, setPicture] = useState(props.model.currentRoom.currentPicture);
-
+    const [picture, setPicture] = useState(props.model.currentRoom.picture);
+    const [myAnswer, setAnswer] = useState(props.model.currentRoom.myAnswer);
     const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
     const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
     const [waiting, setWaiting] = useState(false);
@@ -18,6 +18,7 @@ export default function PlayPresenter(props) {
             setLeaderBoard(props.model.currentRoom.leaderBoard); 
             setPicture(props.model.currentRoom.picture); 
             setAlternatives(props.model.currentRoom.alternatives);
+            setAnswer(props.model.currentRoom.myAnswer);
         });
     }, []);
 
@@ -29,9 +30,11 @@ export default function PlayPresenter(props) {
                     <LeaderBoardView leaderboard={leaderBoard} />
                 </div>
                 <QuizAlternativesView 
+                    myAnswer={myAnswer}
                     alternatives={alternatives}
-                    answerClasses={answerClasses}
-                    onGuess={(name, index) => {
+                    onGuess={(id) => {
+                        props.model.currentRoom.guess(id);
+
                    //      if (waiting) return;
                    //      setWaiting(true);
                    //      let [correct, correctName] = props.model.guess(props.model.currentRoomId, name);

@@ -3,14 +3,14 @@ import './quizAlternatives.css'
 export default function QuizAlternativesView(props) {
     return (
         <div className={'quizAlternatives grid-container'}>
-            {props.alternatives.map((name, index) => {
+            {props.alternatives.map((pokemon, index) => {
                 return (<div 
-                    key={name}
-                    onClick={e => props.onGuess(name, index)}
-                    className={`${props.answerClasses[index]} grid-item`}>
-                        {name}
+                    key={pokemon.id}
+                    onClick={e => props.onGuess(pokemon.id)}
+                    className={`${pokemon.id === props.myAnswer ? 'choice' : ''} grid-item`}>
+                        {pokemon.name}
                         </div>);
-            })}
+            })} 
         </div>
     )
 }

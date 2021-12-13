@@ -6,11 +6,25 @@ export default class Room {
         this.id = id;
         this.name = name;
         this.trainers = [];
-        this.myAnswer = id
+        this.myAnswer = -1;
         this.databaseHandler = databaseHandler;
         this.isAdmin = isAdmin;
         this.leaderBoard = {};
         this.observers = [];
+        this.ending = false;
+
+        console.log(databaseHandler)
+        if (id === databaseHandler.user.uid) {
+            setInterval(() => {
+                if (!this.ending && (this.ending_at_time < Date.now())) {
+                    this.ending = true;
+                    this.databaseHandler.startNewRound().then(() => {
+                        this.ending = false;
+                    })
+                }
+
+            }, 1000); 
+        }
 
         this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
        // this.newRound();
@@ -22,6 +36,8 @@ export default class Room {
            }
        })
     }
+
+    
     
     async newRound() {
         //if (!this.isAdmin) return;
@@ -48,22 +64,25 @@ export default class Room {
              pokeAPI.getPokemon(alternativesIds[3])]);
         
         this.correctAnswer = alternativesPromise[0].data;
-        this.alternatives = alternativesPromise.map(pokemon => pokemon.data.name);
+        this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
-        this.currentPicture = this.questionPicture;
-
-        this.leaderBoard = roomData.player_scores;
+        this.picture = this.questionPicture;
+        this.leaderBoard = roomData.player_scores ? roomData.player_scores : {};
+        this.ending_at_time = currentGuess.ending_at_time;
+        this.notifyObservers();
     }
 
-    guess(guess ) {
+    guess(guess_id) {
+        console.log(guess_id);
+        this.databaseHandler.guess(guess_id, 1337, this.id).then(() => {
+            this.myAnswer = guess_id;
+            this.notifyObservers();
+        });
+
+        
         //this.myGuess = 
         //this.databaseHandler.guess(this.myId)
-    }
-
-    getCurrentImage() {
-        //return this.currentPicture;
-        return null;
     }
 
     updateLeaderBoard(){

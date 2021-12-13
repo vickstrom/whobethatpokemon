@@ -10,7 +10,6 @@ export default class PokeModel{
         this.observers = [];
         this.counter = 0; // Used for generating IDs, remove later (?)
         let dummyRoomId = this.generateId(); // Remove later?
-        this.rooms[dummyRoomId] = new Room(this.databaseHandler, dummyRoomId, 'testRum');
         this.currentRoom = null;
     }
 
@@ -91,6 +90,18 @@ export default class PokeModel{
     notifyObservers(){
         this.observers.forEach(cb=> cb(this));
     }
+
+    setUnsubscribeRoomsHandler(unsub_cb) {
+        this.unsubRoomsHandler = unsub_cb;        
+    }
+
+    unsubscribeToRooms() {
+        if (this.unsubRoomsHandler) {
+            console.log(this.unsubRoomsHandler)
+            this.unsubRoomsHandler(); 
+        }  
+    }
+
 }
 
 function compareScore(a,b){
