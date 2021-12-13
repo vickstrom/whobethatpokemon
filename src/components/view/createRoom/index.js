@@ -1,12 +1,11 @@
 import './createRoom.css';
 
-export default function CreateRoomView() {
+export default function CreateRoomView(props) {
     return (
         <div className={'createRoom'}>
             <p>Create room</p>
-            <input placeholder={'Room name'} />
-            <input type="password" placeholder={'Password'}/>
-            <button>Create</button>
+            <input placeholder={'Room name'} onChange={e => {props.onChange(e)}} />
+            <button onSubmit={e => props.onSubmit(e)}>Create</button>
         </div>
     )
 }

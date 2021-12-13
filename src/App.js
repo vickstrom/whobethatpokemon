@@ -4,6 +4,7 @@ import pokeAPI from './utils/pokeapi.js';
 import ImageProcessing from './utils/image-processing';
 import HomePresenter from './components/presenters/homePresenter';
 import PlayPresenter from './components/presenters/playPresenter';
+import RegisterPresenter from './components/presenters/registerPresenter';
 import RoomSelectorPresenter from './components/presenters/roomSelectorPresenter';
 import Header from './components/view/header';
 
@@ -42,6 +43,9 @@ function App(props) {
             } /> 
             <Route path="/rooms" element={
               <RoomSelectorPresenter model={props.model}/>
+            } /> 
+            <Route path="/register" element={
+              <RegisterPresenter model={props.model}/>
             } /> 
           </Routes>
         </Router>
