@@ -21,7 +21,19 @@ export default function HomePresenter(props) {
                 <LoginView 
                     onPlay={() => {
                         props.model.localPlayerSignIn(name);
-                        navigate('/rooms');
+                        props.model.databaseHandler.loginAsAnonymous().then((res) => {
+                            console.log(res);
+                            props.model.databaseHandler.getAccountDetails().then(snapshot => {
+                                if (snapshot.exists()) {
+                                    console.log(snapshot.val());
+                                    navigate('/rooms');
+                                } else {
+                                    console.log("No data available");
+                                    navigate('/register');
+                                }
+                            });
+ 
+                        });
                     }}
                     onText={text => setName(text)}/> 
             </div>

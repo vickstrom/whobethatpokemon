@@ -1,8 +1,10 @@
 import Room from './roomModel';
+import { DatabaseHandler } from '../utils/database-handler';
 
 export default class PokeModel{
     constructor(trainers={}, rooms={})
     {
+        this.databaseHandler = new DatabaseHandler();
         this.setTrainers(trainers);
         this.setRooms(rooms);
         this.observers = [];
@@ -56,7 +58,9 @@ export default class PokeModel{
     }
 
     addRoom(room){
-        this.rooms[room.id] = room;
+        const rooms = {...this.rooms};
+        rooms[room.id] = room;
+        this.rooms = rooms;
         this.notifyObservers();
     }
 
