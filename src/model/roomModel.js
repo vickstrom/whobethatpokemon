@@ -2,14 +2,45 @@ import pokeAPI from "../utils/pokeapi";
 import ImageProcessing from '../utils/image-processing';
 
 export default class Room {
-    constructor(id, name) {
+    constructor(databaseHandler, id, name, isAdmin=false) {
         this.id = id;
         this.name = name;
         this.trainers = [];
-        this.newRound();
+        this.myAnswer = -1;
+        this.databaseHandler = databaseHandler;
+        this.isAdmin = isAdmin;
+        this.leaderBoard = {};
+        this.observers = [];
+        this.ending = false;
+
+        console.log(databaseHandler)
+        if (id === databaseHandler.user.uid) {
+            setInterval(() => {
+                if (!this.ending && (this.ending_at_time < Date.now())) {
+                    this.ending = true;
+                    this.databaseHandler.startNewRound().then(() => {
+                        this.ending = false;
+                    })
+                }
+
+            }, 1000); 
+        }
+
+        this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
+       // this.newRound();
+
+       console.log(this.databaseHandler + "------");
+       this.databaseHandler.subscribeToRoom(id, (snapshot) => {
+           if (snapshot.exists()) {
+               this.loadRoom(snapshot.val());
+           }
+       })
     }
+
+    
     
     async newRound() {
+        //if (!this.isAdmin) return;
         let alternativesIds = getRandomdIds(4);
         let alternativesPromise = await Promise.all(
             [pokeAPI.getPokemon(alternativesIds[0]),
@@ -23,21 +54,51 @@ export default class Room {
         this.currentPicture = this.questionPicture;
     }
 
-    guess(name, playerId) {
-        this.currentPicture = this.answerPicture;
-        if(name === this.correctAnswer.name) {
-            return [true, this.correctAnswer.name];
-        } else {
-            return [false, this.correctAnswer.name];
-        }
+    async loadRoom(roomData) {
+        const currentGuess = roomData.current_guess;
+        const alternativesIds = currentGuess.ids_to_guess_on;
+        let alternativesPromise = await Promise.all(
+            [pokeAPI.getPokemon(alternativesIds[0]),
+             pokeAPI.getPokemon(alternativesIds[1]),
+             pokeAPI.getPokemon(alternativesIds[2]),
+             pokeAPI.getPokemon(alternativesIds[3])]);
+        
+        this.correctAnswer = alternativesPromise[0].data;
+        this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
+        this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
+        this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
+        this.picture = this.questionPicture;
+        this.leaderBoard = roomData.player_scores ? roomData.player_scores : {};
+        this.ending_at_time = currentGuess.ending_at_time;
+        this.notifyObservers();
     }
 
-    getAlternativesNames() {
-        return this.alternatives.map(alt => alt.name);
+    guess(guess_id) {
+        console.log(guess_id);
+        this.databaseHandler.guess(guess_id, 1337, this.id).then(() => {
+            this.myAnswer = guess_id;
+            this.notifyObservers();
+        });
+
+        
+        //this.myGuess = 
+        //this.databaseHandler.guess(this.myId)
     }
 
-    getCurrentImage() {
-        return this.currentPicture;
+    updateLeaderBoard(){
+        
+    }
+    
+    addObserver(callback){
+        this.observers = [...this.observers, callback];
+    }
+
+    removeObserver(callback){
+        this.observers = this.observers.filter(observer => observer != callback);
+    }
+
+    notifyObservers(){
+        this.observers.forEach(cb=> cb(this));
     }
 }
 

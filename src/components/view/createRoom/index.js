@@ -5,7 +5,7 @@ export default function CreateRoomView(props) {
         <div className={'createRoom'}>
             <p>Create room</p>
             <input placeholder={'Room name'} onChange={e => {props.onChange(e)}} />
-            <button onSubmit={e => props.onSubmit(e)}>Create</button>
+            <button onClick={e => props.onSubmit(e)}>Create</button>
         </div>
     )
 }

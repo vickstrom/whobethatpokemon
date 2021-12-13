@@ -14,6 +14,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FB_APP_ID 
 };
 
+const TIME_BETWEEN_EACH_ROUND = 30;
+
 export class DatabaseHandler {
 
   constructor() {
@@ -33,24 +35,26 @@ export class DatabaseHandler {
     return get(child(dbRef, `users/${this.user.uid}`));
   }
 
-  async createRoom(userId, title) {
+  async createRoom(title) {
     const ids = this.getRandomdIds(4);
-    set(ref(this.database, `rooms/${userId}`), {
+    if (!title) {
+      title = "No room name";
+    }
+    return set(ref(this.database, `rooms/${this.user.uid}`), {
         title: title,
         current_guess: {
-            guess_id: new Date().getTime(), 
+            round_id: Date.now(), 
             ids_to_guess_on: ids,
-            expected_id: ids[0]
+            expected_id: ids[0],
+            ending_at_time: Date().now + (TIME_BETWEEN_EACH_ROUND * 1000),
+            player_scores: {}
         }
     });
   }
 
-  async subscribeToRoom(roomId) {
+  async subscribeToRoom(roomId, onSnapchot) {
     const roomRef = ref(this.database, `rooms/${roomId}`);
-    return onValue(roomRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(roomRef);
-    }) 
+    return onValue(roomRef, onSnapchot);
   }
 
   async subscribeToRooms(onValueFunction) {
@@ -68,20 +72,21 @@ export class DatabaseHandler {
     return ids;
   }
 
-  guess(user_id, guess, guess_id, room_id) {
-      set(ref(this.database, `guesses/${user_id}`), {
-        guess: guess,
-        guess_id:guess_id, 
+  async guess(guess_id, round_id, room_id) {
+      return set(ref(this.database, `guesses/${this.user.uid}`), {
+        guess: guess_id,
+        round_id: round_id, 
         room_id: room_id 
       });
   }
 
-  setNewGuess(user_id) {
+  async startNewRound() {
     const ids = this.getRandomdIds(4);
-    set(ref(this.database, `rooms/${user_id}/current_guess`), {
-      guess_id: new Date().getTime(), 
+    return set(ref(this.database, `rooms/${this.user.uid}/current_guess`), {
+      round_id: new Date().getTime(), 
       ids_to_guess_on: ids,
-      expected_id: ids[0]
+      expected_id: ids[0],
+      ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000)
     });
   }
 
@@ -98,7 +103,7 @@ export class DatabaseHandler {
           Object.keys(guesses).forEach(player_id => {
             if (guesses[player_id].room_id === user_id) {
               let correct_answer = false;
-              if (guesses[player_id].guess === expected_id && guesses[player_id].guess_id === current_guess_id)
+              if (guesses[player_id].guess === expected_id && guesses[player_id].round_id === current_guess_id)
                 correct_answer = true;
               if (player_id in score) {
                 score[player_id] = score[player_id] + (correct_answer ? 1 : 0);

@@ -26,6 +26,7 @@ export default function HomePresenter(props) {
                             props.model.databaseHandler.getAccountDetails().then(snapshot => {
                                 if (snapshot.exists()) {
                                     console.log(snapshot.val());
+                                    props.model.localPlayerSignIn("Anonymous", snapshot.val().uid)
                                     navigate('/rooms');
                                 } else {
                                     console.log("No data available");
