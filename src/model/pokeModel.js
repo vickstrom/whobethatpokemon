@@ -10,7 +10,8 @@ export default class PokeModel{
         this.observers = [];
         this.counter = 0; // Used for generating IDs, remove later (?)
         let dummyRoomId = this.generateId(); // Remove later?
-        this.rooms[dummyRoomId] = new Room(dummyRoomId, 'testRum');
+        this.rooms[dummyRoomId] = new Room(this.databaseHandler, dummyRoomId, 'testRum');
+        this.currentRoom = null;
     }
 
     // Used for generating IDs, remove later (?)
@@ -28,9 +29,8 @@ export default class PokeModel{
         this.trainers = trainers;
     }
 
-    localPlayerSignIn(name) {
-        this.myId = this.generateId();
-        this.addNewTrainer(name, this.myId);
+    localPlayerSignIn(name, id) {
+        this.addNewTrainer(name, id);
     }
 
     addNewTrainer(name, id){
@@ -46,8 +46,9 @@ export default class PokeModel{
     }
 
     joinRoom(trainerId, roomId) {
-        this.addTrainerToRoom(trainerId, roomId);
+        //this.addTrainerToRoom(trainerId, roomId);
         this.currentRoomId = roomId;
+        this.currentRoom = this.rooms[roomId];
     }
 
     addTrainerToRoom(trainerId, roomId){
@@ -59,6 +60,7 @@ export default class PokeModel{
 
     addRoom(room){
         const rooms = {...this.rooms};
+        room.databaseHandler = this.databaseHandler;
         rooms[room.id] = room;
         this.rooms = rooms;
         this.notifyObservers();

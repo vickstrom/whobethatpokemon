@@ -21,7 +21,7 @@ export default function RoomSelectorPresenter(props) {
                 const rooms_ids = Object.keys(snapshot.val());
                 for (let i = 0; i < rooms_ids.length; i++) {
                     const room_id = rooms_ids[i];
-                    props.model.addRoom(new Room(room_id, rooms[room_id].title)); 
+                    props.model.addRoom(new Room(props.model.databaseHandler, room_id, rooms[room_id].title)); 
                 }
             }
         });
@@ -49,7 +49,7 @@ export default function RoomSelectorPresenter(props) {
                         rooms={rooms}
                         onJoin={(roomId) => {
                             setSelectedRoomId(roomId);
-                            props.model.joinRoom(props.model.myId, roomId);
+                            props.model.joinRoom(props.model.databaseHandler.user.uid, roomId);
                             navigate('/play');
                         }
                         }/>

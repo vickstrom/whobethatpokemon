@@ -45,12 +45,9 @@ export class DatabaseHandler {
     });
   }
 
-  async subscribeToRoom(roomId) {
+  async subscribeToRoom(roomId, onSnapchot) {
     const roomRef = ref(this.database, `rooms/${roomId}`);
-    return onValue(roomRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(roomRef);
-    }) 
+    return onValue(roomRef, onSnapchot);
   }
 
   async subscribeToRooms(onValueFunction) {

@@ -5,42 +5,47 @@ import { useEffect, useState } from 'react';
 import LeaderBoardView from "../../view/leaderboard";
 
 export default function PlayPresenter(props) {
-    const [currentRoom, setCurrentRoom] = useState(props.model.getRoom(props.model.currentRoomId));
+    const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
+    const [alternatives, setAlternatives] = useState(props.model.currentRoom.alternatives);
+    const [picture, setPicture] = useState(props.model.currentRoom.currentPicture);
+
     const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
     const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
     const [waiting, setWaiting] = useState(false);
 
     useEffect(() => {
-        props.model.addObserver(() => setCurrentRoom(props.model.getRoom(props.model.currentRoomId)));
+        props.model.currentRoom.addObserver(() => {
+            setLeaderBoard(props.model.currentRoom.leaderBoard); 
+            setPicture(props.model.currentRoom.picture); 
+            setAlternatives(props.model.currentRoom.alternatives);
+        });
     }, []);
 
     return (
         <div className={"play"}>
             <div className={'play-split'}>
                 <div className={'mainView'}>
-                    <WhoPokemonView image={currentRoom.getCurrentImage() || 'http://www.csc.kth.se/~cristi/loading.gif'} />
-                    <LeaderBoardView leaderboard={
-                        [{name: "Kalle", points: 1337}, {name: "Kungen", points: -1}]
-                    } />
+                    <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
+                    <LeaderBoardView leaderboard={leaderBoard} />
                 </div>
                 <QuizAlternativesView 
-                    alternatives={currentRoom.getAlternativesNames()}
+                    alternatives={alternatives}
                     answerClasses={answerClasses}
                     onGuess={(name, index) => {
-                        if (waiting) return;
-                        setWaiting(true);
-                        let [correct, correctName] = props.model.guess(props.model.currentRoomId, name);
-                        let correctIndex = currentRoom.getAlternativesNames().indexOf(correctName);
-                        var newAnswerClasses = [...answerClasses];
-                        newAnswerClasses[index] = correct ? "correct" : "incorrect";
-                        // Correct answer should always be green
-                        newAnswerClasses[correctIndex] = "correct";
-                        setAnswerClasses(newAnswerClasses);
-                        setTimeout(async () => {
-                            await props.model.newRound(props.model.currentRoomId);
-                            setAnswerClasses(defaultAnswerClasses);
-                            setWaiting(false);
-                        }, 2000);
+                   //      if (waiting) return;
+                   //      setWaiting(true);
+                   //      let [correct, correctName] = props.model.guess(props.model.currentRoomId, name);
+                   //      let correctIndex = currentRoom.getAlternativesNames().indexOf(correctName);
+                   //      var newAnswerClasses = [...answerClasses];
+                   //      newAnswerClasses[index] = correct ? "correct" : "incorrect";
+                   //      // Correct answer should always be green
+                   //      newAnswerClasses[correctIndex] = "correct";
+                   //      setAnswerClasses(newAnswerClasses);
+                   //      setTimeout(async () => {
+                   //          await props.model.newRound(props.model.currentRoomId);
+                   //          setAnswerClasses(defaultAnswerClasses);
+                   //          setWaiting(false);
+                   //      }, 2000);
                     }}/>
             </div>
         </div>
