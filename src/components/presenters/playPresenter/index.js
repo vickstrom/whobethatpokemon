@@ -19,6 +19,7 @@ export default function PlayPresenter(props) {
             setAlternatives(props.model.currentRoom.alternatives);
             setAnswer(props.model.currentRoom.myAnswer);
             setEnding(props.model.currentRoom.ending);
+            setTimeleft((props.model.currentRoom.ending_at_time - Date.now()) / 1000);
         });
 
         const timer = setInterval(() => {
