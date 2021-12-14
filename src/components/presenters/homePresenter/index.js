@@ -1,12 +1,14 @@
 import LoginView from '../../view/login';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './home.css';
 import Youtube from '../../view/youtube';
 
 export default function HomePresenter(props) {
     const [name, setName] = useState('');
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const id = searchParams.get('roomId');
 
     return (
         <div className={'home'}>
@@ -27,10 +29,10 @@ export default function HomePresenter(props) {
                                 if (snapshot.exists()) {
                                     console.log(snapshot.val());
                                     props.model.localPlayerSignIn("Anonymous", snapshot.val().uid)
-                                    navigate('/rooms');
+                                    navigate('/room' + (id ? `?roomId=${id}` : ''));
                                 } else {
                                     console.log("No data available");
-                                    navigate('/register');
+                                    navigate('/register' + (id ? `?roomId=${id}` : ''));
                                 }
                             });
  

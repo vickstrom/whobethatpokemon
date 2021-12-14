@@ -3,6 +3,8 @@ import QuizAlternativesView from "../../view/quizAlternatives";
 import WhoPokemonView from "../../view/whoPokemon";
 import { useEffect, useState } from 'react';
 import LeaderBoardView from "../../view/leaderboard";
+import Timer from "../../view/pieTimer"
+import InviteFriendsView from "../../view/inviteFriends";
 
 export default function PlayPresenter(props) {
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
@@ -19,11 +21,12 @@ export default function PlayPresenter(props) {
             setAlternatives(props.model.currentRoom.alternatives);
             setAnswer(props.model.currentRoom.myAnswer);
             setEnding(props.model.currentRoom.ending);
+            setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
         });
 
         const timer = setInterval(() => {
-            setTimeleft((props.model.currentRoom.ending_at_time - Date.now()) / 1000);
-        }, 1000);
+            setTimeleft(Math.max(0, (props.model.currentRoom.ending_at_time - Date.now())));
+        }, 50);
         return () => {
             console.log("i run");
             clearInterval(timer);
@@ -38,10 +41,17 @@ export default function PlayPresenter(props) {
     return (
         <div className={"play"}>
             <div className={'play-split'}>
-                <p>{!ending ? Math.round(timeLeft) : "The round has ended, awaiting next."}</p>
+                <div className='play-header'>
+                    <div>
+                        <h3>Room name</h3>
+                    </div>
+                    <div>
+                        {<Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>}
+                    </div>
+                </div>
                 <div className={'mainView'}>
                     <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
-                    <LeaderBoardView leaderboard={leaderBoard} />
+                    <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
                 </div>
                 <QuizAlternativesView 
                     myAnswer={myAnswer}
@@ -52,6 +62,10 @@ export default function PlayPresenter(props) {
                         props.model.currentRoom.guess(id);
                     }}/>
             </div>
+            <InviteFriendsView
+                hidden={!props.model.currentRoom.isAdmin}
+                roomId={props.model.currentRoom.id}
+            />
         </div>
     )
 }

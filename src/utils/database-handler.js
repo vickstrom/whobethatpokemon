@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FB_APP_ID 
 };
 
-const TIME_BETWEEN_EACH_ROUND = 30;
+const TIME_BETWEEN_EACH_ROUND = 10;
 
 export class DatabaseHandler {
 
@@ -36,6 +36,11 @@ export class DatabaseHandler {
     return get(child(dbRef, `users/${this.user.uid}`));
   }
 
+  async getTrainerDetails(userId) {
+    const dbRef = ref(getDatabase());
+    return get(child(dbRef, `users/${userId}`));
+  }
+  
   async createRoom(title) {
     const ids = this.getRandomdIds(4);
     if (!title) {

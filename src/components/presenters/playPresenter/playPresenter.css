@@ -8,13 +8,32 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    flex-direction: column;
+}
+
+.play-header {
+    display: flex;
+    padding: 0px 40px;
+    align-items: center;
+}
+
+.play-header > div:first-child {
+    flex:9;
+    text-align: left;
+}
+
+.play-header > div:last-child() {
+    flex:1;
 }
 
 .play-split {
     background: white;
     display: flex;
     flex-direction: column;
-    flex: 1;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    max-width: 60%;
+    max-width: 1200px;
+    border: solid #454344 16px;
+    border-radius: 16px;
 }
+
+

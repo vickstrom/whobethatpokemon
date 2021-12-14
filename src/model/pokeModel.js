@@ -44,10 +44,10 @@ export default class PokeModel{
         this.notifyObservers();
     }
 
-    joinRoom(roomId) {
+    joinRoom(roomId, isAdmin=false) {
         //this.addTrainerToRoom(trainerId, roomId);
         this.currentRoomId = roomId;
-        this.currentRoom = new Room(this.databaseHandler, roomId, "Test");
+        this.currentRoom = new Room(this.databaseHandler, roomId, "Test", isAdmin);
         this.currentRoom.notifyObservers();
     }
 
@@ -72,7 +72,6 @@ export default class PokeModel{
 
     async newRound(roomId) {
         await this.rooms[roomId].newRound();
-        this.notifyObservers();
     }
 
     // Returns [boolean, string]
