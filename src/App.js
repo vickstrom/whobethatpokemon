@@ -5,7 +5,8 @@ import ImageProcessing from './utils/image-processing';
 import HomePresenter from './components/presenters/homePresenter';
 import PlayPresenter from './components/presenters/playPresenter';
 import RegisterPresenter from './components/presenters/registerPresenter';
-import RoomSelectorPresenter from './components/presenters/roomSelectorPresenter';
+import RoomPresenter from './components/presenters/roomPresenter'
+import JoinViaLinkPresenter from './components/presenters/joinViaLinkPresenter'
 import Header from './components/view/header';
 
 import {
@@ -41,12 +42,15 @@ function App(props) {
             <Route path="/play" element={
               <PlayPresenter model={props.model}/>
             } /> 
-            <Route path="/rooms" element={
-              <RoomSelectorPresenter model={props.model}/>
+            <Route path="/room" element={
+              <RoomPresenter model={props.model}/>
             } /> 
             <Route path="/register" element={
               <RegisterPresenter model={props.model}/>
             } /> 
+            <Route path="/join" element={
+              <JoinViaLinkPresenter model={props.model} />
+            } />
           </Routes>
         </Router>
         </div>

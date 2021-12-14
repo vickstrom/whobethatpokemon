@@ -4,6 +4,7 @@ import WhoPokemonView from "../../view/whoPokemon";
 import { useEffect, useState } from 'react';
 import LeaderBoardView from "../../view/leaderboard";
 import Timer from "../../view/pieTimer"
+import InviteFriendsView from "../../view/inviteFriends";
 
 export default function PlayPresenter(props) {
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
@@ -48,6 +49,10 @@ export default function PlayPresenter(props) {
                         {<Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>}
                     </div>
                 </div>
+                <InviteFriendsView
+                    hidden={!props.model.currentRoom.isAdmin}
+                    roomId={props.model.currentRoom.id}
+                />
                 <div className={'mainView'}>
                     <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
                     <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />

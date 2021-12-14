@@ -9,7 +9,7 @@ export default function Header() {
             <div>
                 <Link to="/">Home</Link>
                 <Link to="/play">Play</Link>
-                <Link to="/rooms">Rooms</Link>
+                <Link to="/room">Room</Link>
             </div>
         </div>
     )
