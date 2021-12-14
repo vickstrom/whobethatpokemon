@@ -12,9 +12,6 @@ export default function QuizAlternativesView(props) {
                         button_effect = 'choice'
                     } 
                 }
-
-                
-
                 if (props.ending && props.correctAnswer === pokemon.id) {
                     button_effect = 'correct';
                 }
