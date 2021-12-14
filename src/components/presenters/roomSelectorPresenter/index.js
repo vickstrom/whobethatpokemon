@@ -15,26 +15,25 @@ export default function RoomSelectorPresenter(props) {
         props.model.addObserver(() => {
             setRooms(props.model.rooms);
         });
-        props.model.databaseHandler.subscribeToRooms((snapshot) => {
+        const unsub = props.model.databaseHandler.subscribeToRooms((snapshot) => {
             if (snapshot.exists()) {
                 const rooms = snapshot.val();
                 const rooms_ids = Object.keys(snapshot.val());
+                const room_list = {};
                 props.model.rooms = [];
                 for (let i = 0; i < rooms_ids.length; i++) {
                     const room_id = rooms_ids[i];
-                    props.model.addRoom(new Room(props.model.databaseHandler, room_id, rooms[room_id].title)); 
+                    room_list[room_id] = {id: room_id, name: rooms[room_id].title};
                 }
+                props.model.rooms = room_list;
+                props.model.notifyObservers();
             }
-        }).then((unsub) => {
-            props.model.setUnsubscribeRoomsHandler(unsub);
-            
         });
-
-        
-
-
-
-
+        return () => {
+            unsub.then((unsub) => {
+                unsub();
+            });
+        }
     }, []); 
     return (
         <div>
@@ -62,7 +61,7 @@ export default function RoomSelectorPresenter(props) {
                         onJoin={(roomId) => {
                             setSelectedRoomId(roomId);
                             props.model.unsubscribeToRooms();
-                            props.model.joinRoom(props.model.databaseHandler.user.uid, roomId);
+                            props.model.joinRoom(roomId);
                             navigate('/play');
                         }
                         }/>

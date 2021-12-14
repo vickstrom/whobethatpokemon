@@ -15,8 +15,11 @@ export default class Room {
         this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
         this.expected_id = -1;
 
+
+        console.log(id);
+
         console.log(databaseHandler)
-        setInterval(() => {
+        this.gameloop = setInterval(() => {
             if (!this.ending && (this.ending_at_time < Date.now())) {
                 this.ending = true;
                 this.picture = this.answerPicture;
@@ -33,31 +36,19 @@ export default class Room {
             }
         }, 200); 
 
-       // this.newRound();
-
        console.log(this.databaseHandler + "------");
-       this.databaseHandler.subscribeToRoom(id, (snapshot) => {
+       this.roomSubscriptionPromise = this.databaseHandler.subscribeToRoom(id, (snapshot) => {
            if (snapshot.exists()) {
                this.loadRoom(snapshot.val());
            }
        })
     }
 
-    
-    
-    async newRound() {
-        //if (!this.isAdmin) return;
-        let alternativesIds = getRandomdIds(4);
-        let alternativesPromise = await Promise.all(
-            [pokeAPI.getPokemon(alternativesIds[0]),
-             pokeAPI.getPokemon(alternativesIds[1]),
-             pokeAPI.getPokemon(alternativesIds[2]),
-             pokeAPI.getPokemon(alternativesIds[3])]);
-        this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
-        this.correctAnswer = this.alternatives[between(0, 4)];
-        this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
-        this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
-        this.currentPicture = this.questionPicture;
+    leaveRoom() {
+        clearInterval(this.gameloop); 
+        this.roomSubscriptionPromise.then(unsub => {
+            unsub();
+        });
     }
 
     async loadRoom(roomData) {
