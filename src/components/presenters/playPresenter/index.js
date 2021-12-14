@@ -49,10 +49,6 @@ export default function PlayPresenter(props) {
                         {<Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>}
                     </div>
                 </div>
-                <InviteFriendsView
-                    hidden={!props.model.currentRoom.isAdmin}
-                    roomId={props.model.currentRoom.id}
-                />
                 <div className={'mainView'}>
                     <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
                     <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
@@ -66,6 +62,10 @@ export default function PlayPresenter(props) {
                         props.model.currentRoom.guess(id);
                     }}/>
             </div>
+            <InviteFriendsView
+                hidden={!props.model.currentRoom.isAdmin}
+                roomId={props.model.currentRoom.id}
+            />
         </div>
     )
 }

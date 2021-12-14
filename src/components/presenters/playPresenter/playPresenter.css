@@ -8,6 +8,7 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    flex-direction: column;
 }
 
 .play-header {
@@ -29,9 +30,10 @@
     background: white;
     display: flex;
     flex-direction: column;
-    flex: 1;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     max-width: 1200px;
     border: solid #454344 16px;
     border-radius: 16px;
 }
+
+
