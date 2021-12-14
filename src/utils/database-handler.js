@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FB_APP_ID 
 };
 
-const TIME_BETWEEN_EACH_ROUND = 30;
+const TIME_BETWEEN_EACH_ROUND = 10;
 
 export class DatabaseHandler {
 

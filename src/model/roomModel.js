@@ -14,11 +14,8 @@ export default class Room {
         this.ending = false;
         this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
         this.expected_id = -1;
+        this.currentRoundId = null;
 
-
-        console.log(id);
-
-        console.log(databaseHandler)
         this.gameloop = setInterval(() => {
             if (!this.ending && (this.ending_at_time < Date.now())) {
                 this.ending = true;
@@ -27,14 +24,12 @@ export default class Room {
                 if (id === databaseHandler.user.uid) {
                     this.databaseHandler.evaluateScores(this.currentGuess.expected_id, this.currentGuess.round_id).then(() => {
                         setTimeout(() => {
-                            this.databaseHandler.startNewRound().then(() => {
-                                this.ending = false;
-                            });
+                            this.databaseHandler.startNewRound();
                         }, 3000);
                     });
                 }
             }
-        }, 200); 
+        }, 200);
 
        console.log(this.databaseHandler + "------");
        this.roomSubscriptionPromise = this.databaseHandler.subscribeToRoom(id, (snapshot) => {
@@ -53,6 +48,7 @@ export default class Room {
 
     async loadRoom(roomData) {
         this.roomData = roomData;
+        console.log(roomData);
         this.currentGuess = roomData.current_guess;
         const alternativesIds = this.currentGuess.ids_to_guess_on;
         let alternativesPromise = await Promise.all(
@@ -66,10 +62,13 @@ export default class Room {
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
         this.leaderBoard = roomData.players_scores ? roomData.players_scores : {};
-        console.log(this.leaderBoar);
         this.ending_at_time = this.currentGuess.ending_at_time;
         this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
         this.expected_id = this.currentGuess.expected_id;
+        if (this.currentGuess.round_id != this.currentRoundId) {
+            this.currentRoundId = this.currentGuess.round_id;
+            this.ending = false;
+        }
         this.notifyObservers();
     }
 
@@ -79,14 +78,6 @@ export default class Room {
             this.myAnswer = guess_id;
             this.notifyObservers();
         });
-
-        
-        //this.myGuess = 
-        //this.databaseHandler.guess(this.myId)
-    }
-
-    updateLeaderBoard(){
-        
     }
     
     addObserver(callback){
