@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import pokeAPI from "../../../utils/pokeapi";
 import RegisterView from "../../view/register";
 import { useNavigate, useSearchParams } from 'react-router-dom';
