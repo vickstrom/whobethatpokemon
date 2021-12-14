@@ -13,6 +13,7 @@ export default class Room {
         this.observers = [];
         this.ending = false;
         this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
+        this.expected_id = -1;
 
         console.log(databaseHandler)
         setInterval(() => {
@@ -77,6 +78,7 @@ export default class Room {
         console.log(this.leaderBoar);
         this.ending_at_time = this.currentGuess.ending_at_time;
         this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
+        this.expected_id = this.currentGuess.expected_id;
         this.notifyObservers();
     }
 
