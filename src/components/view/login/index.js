@@ -27,10 +27,6 @@ export default function LoginView(props) {
             <p>Please login</p>
             <button>Google Account</button>
             <p>or be</p>
-            <input onChange={e => props.onText(e.target.value)}
-                   placeholder={'name'}
-                   type='text'>
-            </input>
             <button onClick={e => props.onPlay()}>Anonymous</button>
         </div>)
 }

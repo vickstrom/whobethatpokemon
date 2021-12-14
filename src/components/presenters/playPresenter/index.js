@@ -28,10 +28,8 @@ export default function PlayPresenter(props) {
             setTimeleft(Math.max(0, (props.model.currentRoom.ending_at_time - Date.now())));
         }, 50);
         return () => {
-            console.log("i run");
             clearInterval(timer);
             if (props.model.currentRoom) {
-                console.log(props.model.currentRoom);
                 props.model.currentRoom.leaveRoom(); 
                 props.model.currentRoom = null;
             }
