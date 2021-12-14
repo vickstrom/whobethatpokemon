@@ -1,0 +1,13 @@
+
+svg {
+  display: block;
+  margin: 50px auto;
+  width: 75px;
+  height: 75px;
+}
+
+#timer-border
+{ fill: #396bba }
+
+#timer
+{ fill: #ffe031 }
