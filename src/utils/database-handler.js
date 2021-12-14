@@ -35,6 +35,11 @@ export class DatabaseHandler {
     return get(child(dbRef, `users/${this.user.uid}`));
   }
 
+  async getTrainerDetails(userId) {
+    const dbRef = ref(getDatabase());
+    return get(child(dbRef, `users/${userId}`));
+  }
+  
   async createRoom(title) {
     const ids = this.getRandomdIds(4);
     if (!title) {

@@ -14,6 +14,7 @@ export default class Room {
         this.ending = false;
         this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
         this.expected_id = -1;
+        this.users = {};
 
 
         console.log(id);
@@ -66,10 +67,12 @@ export default class Room {
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
         this.leaderBoard = roomData.players_scores ? roomData.players_scores : {};
-        console.log(this.leaderBoar);
         this.ending_at_time = this.currentGuess.ending_at_time;
         this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
         this.expected_id = this.currentGuess.expected_id;
+        
+        this.getTrainersInfo(this.leaderBoard)
+    
         this.notifyObservers();
     }
 
@@ -88,6 +91,26 @@ export default class Room {
     updateLeaderBoard(){
         
     }
+
+    async getTrainersInfo(player_scores) {
+        const player_ids = Object.keys(player_scores);
+        const ids_to_be_retrieved = [];
+        for (let i = 0; i < player_ids.length; i++) {
+            if (!this.users[player_ids]) {
+                ids_to_be_retrieved.push(player_ids);
+            }
+        }
+        Promise.all(ids_to_be_retrieved.map(id => {
+            return this.databaseHandler.getTrainerDetails(id);
+        })).then(snapshot_trainers => {
+            for (let i = 0; i < snapshot_trainers.length; i++) {
+                if (snapshot_trainers[i].exists()) {
+                    this.users[ids_to_be_retrieved[i]] = snapshot_trainers[i].val();
+                }
+            }
+        });
+    }
+    
     
     addObserver(callback){
         this.observers = [...this.observers, callback];

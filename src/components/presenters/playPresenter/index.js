@@ -41,7 +41,7 @@ export default function PlayPresenter(props) {
                 <p>{!ending ? Math.round(timeLeft) : "The round has ended, awaiting next."}</p>
                 <div className={'mainView'}>
                     <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
-                    <LeaderBoardView leaderboard={leaderBoard} />
+                    <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
                 </div>
                 <QuizAlternativesView 
                     myAnswer={myAnswer}
