@@ -5,7 +5,7 @@ export default function LeaderBoardView(props) {
     const player_ids = Object.keys(props.leaderboard);
     const player_objects = player_ids.map((player_id) => {
         return {
-            name: player_id,
+            name: props.users[player_id] ? props.users[player_id].display_name : 'Unknown',
             points: props.leaderboard[player_id]
         }
     })
