@@ -72,7 +72,6 @@ export default class PokeModel{
 
     async newRound(roomId) {
         await this.rooms[roomId].newRound();
-        this.notifyObservers();
     }
 
     // Returns [boolean, string]
