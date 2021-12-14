@@ -9,9 +9,8 @@ export default function PlayPresenter(props) {
     const [alternatives, setAlternatives] = useState(props.model.currentRoom.alternatives);
     const [picture, setPicture] = useState(props.model.currentRoom.picture);
     const [myAnswer, setAnswer] = useState(props.model.currentRoom.myAnswer);
-    const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
-    const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
-    const [waiting, setWaiting] = useState(false);
+    const [ending, setEnding] = useState(props.model.currentRoom.ending);
+    const [timeLeft, setTimeleft] = useState(false);
 
     useEffect(() => {
         props.model.currentRoom.addObserver(() => {
@@ -19,18 +18,29 @@ export default function PlayPresenter(props) {
             setPicture(props.model.currentRoom.picture); 
             setAlternatives(props.model.currentRoom.alternatives);
             setAnswer(props.model.currentRoom.myAnswer);
+            setEnding(props.model.currentRoom.ending);
         });
-    }, []);
+
+        const timer = setInterval(() => {
+            setTimeleft((props.model.currentRoom.ending_at_time - Date.now()) / 1000);
+        }, 1000);
+        return () => {
+            clearInterval(timer);
+        }
+    });
 
     return (
         <div className={"play"}>
             <div className={'play-split'}>
+                <p>{!ending ? Math.round(timeLeft) : "The round has ended, awaiting next."}</p>
                 <div className={'mainView'}>
                     <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
                     <LeaderBoardView leaderboard={leaderBoard} />
                 </div>
                 <QuizAlternativesView 
                     myAnswer={myAnswer}
+                    ending={ending}
+                    correctAnswer={props.model.currentRoom.expected_id}
                     alternatives={alternatives}
                     onGuess={(id) => {
                         props.model.currentRoom.guess(id);
