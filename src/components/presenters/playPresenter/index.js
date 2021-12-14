@@ -25,9 +25,15 @@ export default function PlayPresenter(props) {
             setTimeleft((props.model.currentRoom.ending_at_time - Date.now()) / 1000);
         }, 1000);
         return () => {
+            console.log("i run");
             clearInterval(timer);
+            if (props.model.currentRoom) {
+                console.log(props.model.currentRoom);
+                props.model.currentRoom.leaveRoom(); 
+                props.model.currentRoom = null;
+            }
         }
-    });
+    }, []);
 
     return (
         <div className={"play"}>
@@ -44,21 +50,6 @@ export default function PlayPresenter(props) {
                     alternatives={alternatives}
                     onGuess={(id) => {
                         props.model.currentRoom.guess(id);
-
-                   //      if (waiting) return;
-                   //      setWaiting(true);
-                   //      let [correct, correctName] = props.model.guess(props.model.currentRoomId, name);
-                   //      let correctIndex = currentRoom.getAlternativesNames().indexOf(correctName);
-                   //      var newAnswerClasses = [...answerClasses];
-                   //      newAnswerClasses[index] = correct ? "correct" : "incorrect";
-                   //      // Correct answer should always be green
-                   //      newAnswerClasses[correctIndex] = "correct";
-                   //      setAnswerClasses(newAnswerClasses);
-                   //      setTimeout(async () => {
-                   //          await props.model.newRound(props.model.currentRoomId);
-                   //          setAnswerClasses(defaultAnswerClasses);
-                   //          setWaiting(false);
-                   //      }, 2000);
                     }}/>
             </div>
         </div>

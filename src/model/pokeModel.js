@@ -44,10 +44,11 @@ export default class PokeModel{
         this.notifyObservers();
     }
 
-    joinRoom(trainerId, roomId) {
+    joinRoom(roomId) {
         //this.addTrainerToRoom(trainerId, roomId);
         this.currentRoomId = roomId;
-        this.currentRoom = this.rooms[roomId];
+        this.currentRoom = new Room(this.databaseHandler, roomId, "Test");
+        this.currentRoom.notifyObservers();
     }
 
     addTrainerToRoom(trainerId, roomId){
