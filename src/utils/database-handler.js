@@ -46,7 +46,7 @@ export class DatabaseHandler {
             round_id: Date.now(), 
             ids_to_guess_on: ids,
             expected_id: ids[0],
-            ending_at_time: Date().now + (TIME_BETWEEN_EACH_ROUND * 1000),
+            ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000),
             player_scores: {}
         }
     });
@@ -90,10 +90,11 @@ export class DatabaseHandler {
     });
   }
 
-  evaluateScores(user_id, expected_id, current_guess_id) {
+  async evaluateScores(expected_id, round_id) {
+    const user_id = this.user.uid;
       const dbRef = ref(this.database);
-      get(child(dbRef, `guesses`)).then((snapshot_guesses) => {
-        get(child(dbRef, `rooms/${user_id}/players_scores`)).then((snapshot) => {
+      return get(child(dbRef, `guesses`)).then((snapshot_guesses) => {
+        return get(child(dbRef, `rooms/${user_id}/players_scores`)).then((snapshot) => {
           let score = {}
           if (snapshot.exists())
             score = snapshot.val()
@@ -103,7 +104,7 @@ export class DatabaseHandler {
           Object.keys(guesses).forEach(player_id => {
             if (guesses[player_id].room_id === user_id) {
               let correct_answer = false;
-              if (guesses[player_id].guess === expected_id && guesses[player_id].round_id === current_guess_id)
+              if (guesses[player_id].guess === expected_id && guesses[player_id].round_id === round_id)
                 correct_answer = true;
               if (player_id in score) {
                 score[player_id] = score[player_id] + (correct_answer ? 1 : 0);
@@ -113,7 +114,8 @@ export class DatabaseHandler {
               }
             }
           });
-          set(ref(this.database, `rooms/${user_id}/players_scores`), score);
+          console.log("evaluating scores", score);
+          return set(ref(this.database, `rooms/${user_id}/players_scores`), score);
         }).catch((error) => {
           console.error(error);
         });

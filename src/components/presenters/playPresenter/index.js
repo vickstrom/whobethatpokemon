@@ -12,6 +12,7 @@ export default function PlayPresenter(props) {
     const defaultAnswerClasses = ["neutral", "neutral", "neutral", "neutral"]; 
     const [answerClasses, setAnswerClasses] = useState(defaultAnswerClasses);
     const [waiting, setWaiting] = useState(false);
+    const [timeLeft, setTimeleft] = useState(false);
 
     useEffect(() => {
         props.model.currentRoom.addObserver(() => {
@@ -20,11 +21,19 @@ export default function PlayPresenter(props) {
             setAlternatives(props.model.currentRoom.alternatives);
             setAnswer(props.model.currentRoom.myAnswer);
         });
-    }, []);
+
+        const timer = setInterval(() => {
+            setTimeleft((props.model.currentRoom.ending_at_time - Date.now()) / 1000);
+        }, 1000);
+        return () => {
+            clearInterval(timer);
+        }
+    });
 
     return (
         <div className={"play"}>
             <div className={'play-split'}>
+                <p>{Math.round(timeLeft)}</p>
                 <div className={'mainView'}>
                     <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
                     <LeaderBoardView leaderboard={leaderBoard} />

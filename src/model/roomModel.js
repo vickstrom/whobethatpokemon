@@ -12,21 +12,26 @@ export default class Room {
         this.leaderBoard = {};
         this.observers = [];
         this.ending = false;
+        this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
 
         console.log(databaseHandler)
-        if (id === databaseHandler.user.uid) {
-            setInterval(() => {
-                if (!this.ending && (this.ending_at_time < Date.now())) {
-                    this.ending = true;
-                    this.databaseHandler.startNewRound().then(() => {
-                        this.ending = false;
-                    })
+        setInterval(() => {
+            if (!this.ending && (this.ending_at_time < Date.now())) {
+                this.ending = true;
+                this.picture = this.answerPicture;
+                this.notifyObservers();
+                if (id === databaseHandler.user.uid) {
+                    this.databaseHandler.evaluateScores(this.currentGuess.expected_id, this.currentGuess.round_id).then(() => {
+                        setTimeout(() => {
+                            this.databaseHandler.startNewRound().then(() => {
+                                this.ending = false;
+                            });
+                        }, 3000);
+                    });
                 }
+            }
+        }, 200); 
 
-            }, 1000); 
-        }
-
-        this.alternatives = ["Alt. 1", "Alt. 2" , "Alt. 3", "Alt. 4"];
        // this.newRound();
 
        console.log(this.databaseHandler + "------");
@@ -55,8 +60,9 @@ export default class Room {
     }
 
     async loadRoom(roomData) {
-        const currentGuess = roomData.current_guess;
-        const alternativesIds = currentGuess.ids_to_guess_on;
+        this.roomData = roomData;
+        this.currentGuess = roomData.current_guess;
+        const alternativesIds = this.currentGuess.ids_to_guess_on;
         let alternativesPromise = await Promise.all(
             [pokeAPI.getPokemon(alternativesIds[0]),
              pokeAPI.getPokemon(alternativesIds[1]),
@@ -67,15 +73,16 @@ export default class Room {
         this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
-        this.picture = this.questionPicture;
-        this.leaderBoard = roomData.player_scores ? roomData.player_scores : {};
-        this.ending_at_time = currentGuess.ending_at_time;
+        this.leaderBoard = roomData.players_scores ? roomData.players_scores : {};
+        console.log(this.leaderBoar);
+        this.ending_at_time = this.currentGuess.ending_at_time;
+        this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
         this.notifyObservers();
     }
 
     guess(guess_id) {
         console.log(guess_id);
-        this.databaseHandler.guess(guess_id, 1337, this.id).then(() => {
+        this.databaseHandler.guess(guess_id, this.currentGuess.round_id, this.id).then(() => {
             this.myAnswer = guess_id;
             this.notifyObservers();
         });
