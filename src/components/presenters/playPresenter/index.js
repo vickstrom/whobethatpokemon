@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import LeaderBoardView from "../../view/leaderboard";
 import Timer from "../../view/pieTimer"
 import InviteFriendsView from "../../view/inviteFriends";
+import Window from "../../view/window";
 
 export default function PlayPresenter(props) {
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
@@ -36,34 +37,45 @@ export default function PlayPresenter(props) {
         }
     }, []);
 
+    const owner = props.model.currentRoom.users[props.model.currentRoom.id];
+    
+
     return (
         <div className={"play"}>
-            <div className={'play-split'}>
-                <div className='play-header'>
-                    <div>
-                        <h3>Room name</h3>
+            <Window>
+                <InviteFriendsView
+                    hidden={!props.model.currentRoom.isAdmin}
+                    roomId={props.model.currentRoom.id}
+                />
+            </Window>
+            <Window>
+                <div className={'play-split'}>
+                    <div className='play-header'>
+                        <div>
+                            <h3>{owner ? `${owner.display_name}\'s room` : 'Room'} </h3>
+                        </div>
+                        <div>
+                            {<Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>}
+                        </div>
                     </div>
-                    <div>
-                        {<Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>}
+                    <div className={'mainView'}>
+                        <Window>
+                            <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />   
+                        </Window>
                     </div>
+                    <QuizAlternativesView 
+                        myAnswer={myAnswer}
+                        ending={ending}
+                        correctAnswer={props.model.currentRoom.expected_id}
+                        alternatives={alternatives}
+                        onGuess={(id) => {
+                            props.model.currentRoom.guess(id);
+                        }}/>
                 </div>
-                <div className={'mainView'}>
-                    <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />
-                    <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
-                </div>
-                <QuizAlternativesView 
-                    myAnswer={myAnswer}
-                    ending={ending}
-                    correctAnswer={props.model.currentRoom.expected_id}
-                    alternatives={alternatives}
-                    onGuess={(id) => {
-                        props.model.currentRoom.guess(id);
-                    }}/>
-            </div>
-            <InviteFriendsView
-                hidden={!props.model.currentRoom.isAdmin}
-                roomId={props.model.currentRoom.id}
-            />
+            </Window>
+            <Window>
+                <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
+            </Window>
         </div>
     )
 }

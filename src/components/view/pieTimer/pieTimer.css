@@ -7,7 +7,7 @@ svg {
 }
 
 #timer-border
-{ fill: #454344 }
+{ fill: rgb(130, 130, 130, 0.1) }
 
 #timer
-{ fill: #d73f48 }
+{ fill: rgb(150, 150, 150, 0.1) }

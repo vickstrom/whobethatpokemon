@@ -26,11 +26,9 @@ export default function HomePresenter(props) {
                         props.model.databaseHandler.loginAsAnonymous().then((res) => {
                             props.model.databaseHandler.getAccountDetails().then(snapshot => {
                                 if (snapshot.exists()) {
-                                    console.log(snapshot.val());
                                     props.model.localPlayerSignIn("Anonymous", snapshot.val().uid)
                                     navigate('/room' + (id ? `?roomId=${id}` : ''));
                                 } else {
-                                    console.log("No data available");
                                     navigate('/register' + (id ? `?roomId=${id}` : ''));
                                 }
                             });

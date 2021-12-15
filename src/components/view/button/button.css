@@ -1,0 +1,66 @@
+
+.uniform-button {
+  border: 0;
+  border-radius: 7px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s ease-in-out;
+  user-select: none;
+  cursor: pointer;
+}
+
+.green {
+    background: linear-gradient(to bottom right, #42c752, #e6ffca)
+}
+
+.red {
+  background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+}
+
+.yellow {
+    background: linear-gradient(to bottom right, #ffea00, #ffee71);
+}
+
+.orange {
+    background: linear-gradient(to bottom right, #f78400, #ffd23f);
+}
+
+.grey {
+    background: linear-gradient(to bottom right, #a8a8a8a1, #adadad);
+}
+
+.pink {
+    background: linear-gradient(to bottom right, #ff00ff, #ff6aff);
+}
+
+.pink:hover {
+  box-shadow: 0 0 .25rem rgba(216, 231, 3, 0.788), -.125rem -.125rem 1rem rgb(231, 51, 255), .125rem .125rem 1rem rgb(235, 36, 235);
+}
+
+.yellow:hover {
+  box-shadow: 0 0 .25rem rgba(216, 231, 3, 0.788), -.125rem -.125rem 1rem rgba(235, 217, 20, 0.5), .125rem .125rem 1rem rgba(255, 251, 25, 0.5);
+}
+
+.red:hover {
+  box-shadow: 0 0 .25rem rgba(255, 55, 55, 0.5), -.125rem -.125rem 1rem rgba(255, 98, 127, 0.5), .125rem .125rem 1rem rgba(255, 54, 54, 0.5);
+}
+
+.green:hover {
+  box-shadow: 0 0 .25rem rgba(52, 255, 12, 0.5), -.125rem -.125rem 1rem rgba(0, 197, 23, 0.5), .125rem .125rem 1rem rgba(94, 255, 54, 0.5);
+}
+
+.orange:hover {
+  box-shadow: 0 0 .25rem rgba(255, 196, 4, 0.897), -.125rem -.125rem 1rem rgba(255, 187, 0, 0.856), .125rem .125rem 1rem rgba(255, 98, 0, 0.747);
+}
+
+.grey:hover {
+  box-shadow: 0 0 .25rem rgba(150, 150, 150, 0.5), -.125rem -.125rem 1rem rgba(168, 168, 168, 0.5), .125rem .125rem 1rem rgba(233, 233, 233, 0.5);
+}
