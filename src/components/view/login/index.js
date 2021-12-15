@@ -2,6 +2,7 @@ import './login.css';
 import pokeAPI from '../../../utils/pokeapi';
 import ImageProcessing from '../../../utils/image-processing';
 import {useState, useEffect} from 'react';
+import Button from '../button';
 
 export default function LoginView(props) {
     const [pokemonImage, setPokemonImage] = useState("");
@@ -25,12 +26,8 @@ export default function LoginView(props) {
             <h1>Ready to play?</h1>
                 
             <p>Please login</p>
-            <button>Google Account</button>
+            <Button color="red" onClick={e => props.onPlay()}>Google Account</Button>
             <p>or be</p>
-            <input onChange={e => props.onText(e.target.value)}
-                   placeholder={'name'}
-                   type='text'>
-            </input>
-            <button onClick={e => props.onPlay()}>Anonymous</button>
+            <Button color="grey" onClick={e => props.onPlay()}>Anonymous</Button>
         </div>)
 }
