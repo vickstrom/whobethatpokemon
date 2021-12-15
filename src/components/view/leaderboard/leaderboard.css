@@ -1,7 +1,6 @@
 .leaderboard {
-    text-align: left;
+    text-align: center;
     background-color: white;
-    color: grey;
     font-size: 28px;
     font-weight: 500;
 }
