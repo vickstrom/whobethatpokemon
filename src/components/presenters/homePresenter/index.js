@@ -24,7 +24,6 @@ export default function HomePresenter(props) {
                     onPlay={() => {
                         props.model.localPlayerSignIn(name);
                         props.model.databaseHandler.loginAsAnonymous().then((res) => {
-                            console.log(res);
                             props.model.databaseHandler.getAccountDetails().then(snapshot => {
                                 if (snapshot.exists()) {
                                     console.log(snapshot.val());

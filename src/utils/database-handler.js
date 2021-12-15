@@ -24,9 +24,10 @@ export class DatabaseHandler {
     this.auth = getAuth();
   }
   
-  async setAccountDetails(displayName) {
+  async setAccountDetails(displayName, avatarId) {
     return set(ref(this.database, 'users/' + this.user.uid), {
-      display_name: displayName
+      display_name: displayName,
+      avatar_id: avatarId
     });
   }
 
