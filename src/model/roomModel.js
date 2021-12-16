@@ -85,14 +85,15 @@ export default class Room {
     }
 
     async getTrainersInfo(player_scores) {
-        //console.log(player_scores);
+        console.log(player_scores);
         const player_ids = Object.keys(player_scores);
         const ids_to_be_retrieved = [];
         for (let i = 0; i < player_ids.length; i++) {
-            if (!this.users[player_ids]) {
-                ids_to_be_retrieved.push(player_ids);
+            if (!this.users[player_ids[i]]) {
+                ids_to_be_retrieved.push(player_ids[i]);
             }
         }
+        console.log(ids_to_be_retrieved)
         const snapshotTrainers = await Promise.all(ids_to_be_retrieved.map(id => {
             return this.databaseHandler.getTrainerDetails(id);
         }))
