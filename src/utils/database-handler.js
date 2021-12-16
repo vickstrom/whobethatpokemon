@@ -58,6 +58,11 @@ export class DatabaseHandler {
     });
   }
 
+  async getRoom(roomId) {
+    const dbRef = ref(this.database);
+    return get(child(dbRef, `rooms/${roomId}`));
+  }
+
   async subscribeToRoom(roomId, onSnapchot) {
     const roomRef = ref(this.database, `rooms/${roomId}`);
     return onValue(roomRef, onSnapchot);
