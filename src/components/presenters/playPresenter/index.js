@@ -9,6 +9,7 @@ import Window from "../../view/window";
 import Spinner from "../../view/spinner";
 
 export default function PlayPresenter(props) {
+    const [users, setUsers] = useState(props.model.currentRoom.users);
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
     const [alternatives, setAlternatives] = useState(props.model.currentRoom.alternatives);
     const [picture, setPicture] = useState(props.model.currentRoom.picture);
@@ -16,6 +17,10 @@ export default function PlayPresenter(props) {
     const [ending, setEnding] = useState(props.model.currentRoom.ending);
     const [timeLeft, setTimeleft] = useState(false);
     const [copiedLink, setCopiedLink] = useState(null);
+    const getsprites = Promise.all(users.map(user => {return pokeAPI.getPokemon(user.avatar_id)}))
+    .then(pokemen => {console.log(pokemen);setPokemen(pokemen)})
+    .catch(error => {console.log(error)})
+    const getSprites = users => {users.map(user => {return {id: user.id, avatar: () => await }})};
 
     useEffect(() => {
         props.model.currentRoom.addObserver(() => {
@@ -25,6 +30,7 @@ export default function PlayPresenter(props) {
             setAnswer(props.model.currentRoom.myAnswer);
             setEnding(props.model.currentRoom.ending);
             setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
+            setUsers(props.model.currentRoom.users);
         });
 
         const timer = setInterval(() => {
