@@ -30,7 +30,7 @@ export default function PlayPresenter(props) {
         });
 
         const timer = setInterval(() => {
-            setTimeleft(Math.max(0, (props.model.currentRoom.ending_at_time - Date.now())));
+            setTimeleft(Math.max(0, Math.min(props.model.currentRoom.ending_at_time - Date.now(), 10*1000)));
         }, 50);
         return () => {
             clearInterval(timer);
