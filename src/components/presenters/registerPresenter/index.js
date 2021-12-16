@@ -3,6 +3,7 @@ import pokeAPI from "../../../utils/pokeapi";
 import ProfileSelectorView from "../../view/profileSelector";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NameSelectorView from '../../view/nameSelector';
+import Spinner from '../../view/spinner';
 import './registerPresenter.css';
 
 export default function RegisterPresenter(props) {
@@ -37,5 +38,5 @@ export default function RegisterPresenter(props) {
                 console.log("register")}}
             />
         </div>
-        :null
+         : <Spinner />
     ) }
