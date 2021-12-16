@@ -31,7 +31,7 @@ export default function RegisterPresenter(props) {
             <NameSelectorView
                 setDisplayName={name => setDisplayName(name)}
                 createAccount={() => {
-                    props.model.createAnonymousAccount(displayName, pokemonID).then(() => {
+                    props.model.databaseHandler.setAccountDetails(displayName, pokemonID).then(() => {
                         navigate('/room' + (id ? `?roomId=${id}` : ''));
                     });
                 console.log("register")}}
