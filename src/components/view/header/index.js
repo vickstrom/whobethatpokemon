@@ -9,8 +9,8 @@ import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import pokeAPI from '../../../utils/pokeapi';
 
 export default function Header(props) {
-    const navigate = useNavigate();
     const location = useLocation();
+    const navigate = useNavigate();
 
     let redirectName = "";
     if (location.pathname === "/register") {
@@ -38,6 +38,17 @@ export default function Header(props) {
     const [avatar, setAvatar] = useState(null); 
 
     useEffect(() => {
+        // Redirect from unallowed pages
+        if(location.pathname === '/play' && !props.model.signedIn()) {
+            console.log('should redirect');
+            navigate('/');
+        }
+        if(location.pathname == '/register' && !props.model.hasUserId()) {
+            navigate('/');
+        }
+        if(location.pathname == '/room' && !props.model.signedIn()) {
+            navigate('/');
+        }
         props.model.addObserver(() => {
             if (props.model.signedIn()) {
                 pokeAPI.getPokemon(props.model.account.avatar_id).then(pokemon => {
