@@ -100,7 +100,7 @@ export class DatabaseHandler {
           if (snapshot_guesses.exists())
             guesses = snapshot_guesses.val();
           Object.keys(guesses).forEach(player_id => {
-            if (guesses[player_id].room_id === user_id) {
+            if (guesses[player_id].room_id === user_id && guesses[player_id].round_id === round_id)  {
               let correct_answer = false;
               if (guesses[player_id].guess === expected_id && guesses[player_id].round_id === round_id)
                 correct_answer = true;
