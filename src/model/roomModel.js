@@ -50,7 +50,7 @@ export default class Room {
 
     async loadRoom(roomData) {
         this.roomData = roomData;
-        console.log(roomData);
+        //console.log(roomData);
         this.currentGuess = roomData.current_guess;
         const alternativesIds = this.currentGuess.ids_to_guess_on;
         let alternativesPromise = await Promise.all(
@@ -63,6 +63,7 @@ export default class Room {
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
         this.leaderBoard = roomData.players_scores ? roomData.players_scores : {[this.databaseHandler.user.uid]: 0};
+        //console.log(this.leaderBoard);
         if(roomData.players_scores){console.log("yes!")}
         this.ending_at_time = this.currentGuess.ending_at_time;
         this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
@@ -98,7 +99,7 @@ export default class Room {
             if (snapshotTrainers[i].exists()) {
                 const user = snapshotTrainers[i].val();
                 const pokemon = await pokeAPI.getPokemon(user.avatar_id);
-                console.log(pokemon.data);
+                //console.log(user);
                 const sprite = pokemon.data.sprites["front_default"];
                 user.avatar = sprite;
                 this.users[ids_to_be_retrieved[i]] = user;

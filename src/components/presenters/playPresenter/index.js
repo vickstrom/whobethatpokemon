@@ -43,7 +43,7 @@ export default function PlayPresenter(props) {
 
     const owner = props.model.currentRoom.users[props.model.currentRoom.id];
     
-    console.log(users);
+    //console.log(users);
     return (
         <div className={"play"}>
             <Window>
