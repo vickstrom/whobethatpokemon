@@ -8,7 +8,7 @@ export default function NameSelectorView(props) {
         <div className={'nameSelector'}>
             <Window>
                 <h3 className={'header'}>Choose your trainer name:</h3>
-                <Input type="text" onChange={e => props.setDisplayName(e.target.value)} />
+                <Input maxLength={10} type="text" onChange={e => props.setDisplayName(e.target.value)} />
                 <Button color="green"
                         disabled={props.disabled}
                         onClick={()=> props.createAccount()}> Register</ Button>

@@ -19,7 +19,8 @@ export default class PokeModel{
     async loadAccountDetails() {
         const account = await this.databaseHandler.getAccountDetails();
         if (account.exists()) {
-            this.account = account;
+            this.account = account.val();
+            this.notifyObservers();
             return true;
         } else {
             return false;
