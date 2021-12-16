@@ -24,13 +24,12 @@ export default function RoomPresenter(props) {
             <div className='roomSelector'>
                 <CreateRoomView 
                     onSubmit={(e) => {
-                        props.model.databaseHandler.createRoom("")
+                        props.model.createRoom()
                             .then(() => {
-                                props.model.joinRoom(props.model.databaseHandler.user.uid, true);
+                                props.model.joinRoom(props.model.userId, true);
                                 navigate('/play');
                             })
-                    }}
-                    />
+                    }} />
                     <JoinRoomView
                         message={message}
                         onRoomName={(e) => {

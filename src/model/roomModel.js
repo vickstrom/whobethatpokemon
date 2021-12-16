@@ -59,7 +59,6 @@ export default class Room {
              pokeAPI.getPokemon(alternativesIds[2]),
              pokeAPI.getPokemon(alternativesIds[3])]);
         this.correctAnswer = alternativesPromise.filter(pokemon => pokemon.data.id === this.currentGuess.expected_id)[0].data;
-        //this.correctAnswer = alternativesPromise[0].data;
         this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
@@ -67,7 +66,7 @@ export default class Room {
         this.ending_at_time = this.currentGuess.ending_at_time;
         this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
         this.expected_id = this.currentGuess.expected_id;
-        this.getTrainersInfo(this.leaderBoard)
+        this.getTrainersInfo(this.leaderBoard);
         if (this.currentGuess.round_id != this.currentRoundId) {
             this.currentRoundId = this.currentGuess.round_id;
             this.ending = false;
@@ -101,7 +100,6 @@ export default class Room {
             }
         });
     }
-    
     
     addObserver(callback){
         this.observers = [...this.observers, callback];
