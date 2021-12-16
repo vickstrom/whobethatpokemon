@@ -7,7 +7,7 @@ export default function QuizAlternativesView(props) {
             <h3>Choose your pokémon</h3>
             <div className={'quizAlternatives grid-container'}>
                 {props.alternatives.map((pokemon, index) => {
-                    let button_effect = 'red';
+                    let button_effect = 'blue';
                     if (props.myAnswer === pokemon.id) {
                         if (props.ending && props.myAnswer !== props.correctAnswer) {
                             button_effect = 'red';
