@@ -9,6 +9,7 @@ import Window from "../../view/window";
 import Spinner from "../../view/spinner";
 
 export default function PlayPresenter(props) {
+    const [users, setUsers] = useState(props.model.currentRoom.users);
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
     const [alternatives, setAlternatives] = useState(props.model.currentRoom.alternatives);
     const [picture, setPicture] = useState(props.model.currentRoom.picture);
@@ -25,6 +26,7 @@ export default function PlayPresenter(props) {
             setAnswer(props.model.currentRoom.myAnswer);
             setEnding(props.model.currentRoom.ending);
             setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
+            setUsers(props.model.currentRoom.users);
         });
 
         const timer = setInterval(() => {
@@ -41,7 +43,7 @@ export default function PlayPresenter(props) {
 
     const owner = props.model.currentRoom.users[props.model.currentRoom.id];
     
-
+    //console.log(users);
     return (
         <div className={"play"}>
             <Window>
@@ -78,7 +80,7 @@ export default function PlayPresenter(props) {
                 </div>
             </Window>
             <Window>
-                <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
+                <LeaderBoardView users={users} leaderboard={leaderBoard} />
             </Window>
         </div>
     )
