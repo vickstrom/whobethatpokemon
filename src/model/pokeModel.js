@@ -26,6 +26,14 @@ export default class PokeModel{
             return false;
         }
     }
+    
+    hasUserId() {
+        if (this.userId !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     signedIn() {
         if (this.account) {
