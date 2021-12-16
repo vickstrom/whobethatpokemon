@@ -15,6 +15,7 @@ export default function PlayPresenter(props) {
     const [myAnswer, setAnswer] = useState(props.model.currentRoom.myAnswer);
     const [ending, setEnding] = useState(props.model.currentRoom.ending);
     const [timeLeft, setTimeleft] = useState(false);
+    const [copiedLink, setCopiedLink] = useState(null);
 
     useEffect(() => {
         props.model.currentRoom.addObserver(() => {
@@ -47,6 +48,8 @@ export default function PlayPresenter(props) {
                 <InviteFriendsView
                     hidden={!props.model.currentRoom.isAdmin}
                     roomId={props.model.currentRoom.id}
+                    copyLink={(bool) => setCopiedLink(bool)}
+                    hasCopied={copiedLink}
                 />
             </Window>
             <Window>
