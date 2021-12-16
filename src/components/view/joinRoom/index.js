@@ -1,17 +1,19 @@
 import './joinRoom.css';
+import Input from '../input';
+import Button from '../button';
+import Window from '../window';
+
 export default function JoinRoomView(props) {
     return (
-        <div>
+        <Window>
             <div>
-            <p>Join room:
-            <input placeholder={'Room id'} onChange={e => {props.onRoomName(e)}} />
-            <button onClick={e => props.onJoin(e)}>Join</button>
-            </p>
+            <p>Join room:</p>
+            <Input placeholder={'Room id'} onChange={e => {props.onRoomName(e)}} />
+            <Button color="red" onClick={e => props.onJoin(e)}>Join</Button>
             </div>
             <div class="message">
             {props.message}
             </div>
-        </div>
-        
+        </Window>        
     )
 }

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import pokeAPI from "../../../utils/pokeapi";
-import RegisterView from "../../view/register";
+import ProfileSelectorView from "../../view/profileSelector";
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import NameSelectorView from '../../view/nameSelector';
+import Spinner from '../../view/spinner';
+import './registerPresenter.css';
 
 export default function RegisterPresenter(props) {
-    const randomIDs = Array.from({length: 20}, () => Math.floor(Math.random() * 898 + 1));
+    const randomIDs = Array.from({length: 100}, () => Math.floor(Math.random() * 898 + 1));
     const [displayName, setDisplayName] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -19,18 +22,21 @@ export default function RegisterPresenter(props) {
     }, []);
 
     return ( pokemen ?
-        <div>
-            <RegisterView 
-            pokemon={pokemen.map(e => e.data)}
-            setPokemon={id => setPokemonID(id)}
-            setDisplayName={name => setDisplayName(name)}
-            disabled= {pokemonID && (displayName.length > 3)? false :true}
-            createAccount={() => {
-                props.model.databaseHandler.setAccountDetails(displayName, pokemonID).then(() => {
-                    navigate('/room' + (id ? `?roomId=${id}` : ''));
-                });
+        <div className={'registerPresenter'}>
+            <ProfileSelectorView 
+                pokemon={pokemen.map(e => e.data)}
+                setPokemon={id => setPokemonID(id)}
+                selectedPokemonId={pokemonID}
+                disabled= {pokemonID && (displayName.length > 3)? false :true}
+            />
+            <NameSelectorView
+                setDisplayName={name => setDisplayName(name)}
+                createAccount={() => {
+                    props.model.databaseHandler.setAccountDetails(displayName, pokemonID).then(() => {
+                        navigate('/room' + (id ? `?roomId=${id}` : ''));
+                    });
                 console.log("register")}}
             />
         </div>
-        :null
+         : <Spinner />
     ) }

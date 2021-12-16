@@ -41,6 +41,10 @@
     background: linear-gradient(to bottom right, #ff00ff, #ff6aff);
 }
 
+.blue {
+  background: linear-gradient(to bottom right, #25e1ff, #5a8dff);
+}
+
 .pink:hover {
   box-shadow: 0 0 .25rem rgba(216, 231, 3, 0.788), -.125rem -.125rem 1rem rgb(231, 51, 255), .125rem .125rem 1rem rgb(235, 36, 235);
 }
@@ -63,4 +67,8 @@
 
 .grey:hover {
   box-shadow: 0 0 .25rem rgba(150, 150, 150, 0.5), -.125rem -.125rem 1rem rgba(168, 168, 168, 0.5), .125rem .125rem 1rem rgba(233, 233, 233, 0.5);
+}
+
+.blue:hover {
+  box-shadow: 0 0 .25rem rgba(40, 223, 255, 0.842), -.125rem -.125rem 1rem rgb(9, 218, 255), .125rem .125rem 1rem rgb(29, 221, 255); 
 }

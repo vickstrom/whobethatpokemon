@@ -6,6 +6,7 @@ import LeaderBoardView from "../../view/leaderboard";
 import Timer from "../../view/pieTimer"
 import InviteFriendsView from "../../view/inviteFriends";
 import Window from "../../view/window";
+import Spinner from "../../view/spinner";
 
 export default function PlayPresenter(props) {
     const [leaderBoard, setLeaderBoard] = useState(props.model.currentRoom.leaderBoard);
@@ -60,7 +61,7 @@ export default function PlayPresenter(props) {
                     </div>
                     <div className={'mainView'}>
                         <Window>
-                            <WhoPokemonView image={picture || 'http://www.csc.kth.se/~cristi/loading.gif'} />   
+                            <WhoPokemonView image={picture || <Spinner />} />
                         </Window>
                     </div>
                     <QuizAlternativesView 
