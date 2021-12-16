@@ -64,7 +64,7 @@ export default class Room {
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
         this.leaderBoard = roomData.players_scores ? roomData.players_scores : {[this.databaseHandler.user.uid]: 0};
         //console.log(this.leaderBoard);
-        if(roomData.players_scores){console.log("yes!")}
+        //if(roomData.players_scores){console.log("yes!")}
         this.ending_at_time = this.currentGuess.ending_at_time;
         this.picture = this.ending_at_time < Date.now() ? this.answerPicture :this.questionPicture;
         this.expected_id = this.currentGuess.expected_id;
@@ -85,6 +85,7 @@ export default class Room {
     }
 
     async getTrainersInfo(player_scores) {
+        //console.log(player_scores);
         const player_ids = Object.keys(player_scores);
         const ids_to_be_retrieved = [];
         for (let i = 0; i < player_ids.length; i++) {
@@ -97,6 +98,7 @@ export default class Room {
         }))
         for (let i = 0; i < snapshotTrainers.length; i++) {
             if (snapshotTrainers[i].exists()) {
+                console.log(snapshotTrainers[i].val())
                 const user = snapshotTrainers[i].val();
                 const pokemon = await pokeAPI.getPokemon(user.avatar_id);
                 //console.log(user);
@@ -105,7 +107,7 @@ export default class Room {
                 this.users[ids_to_be_retrieved[i]] = user;
             }
         }
-        ;
+        this.notifyObservers();
     }
     
     addObserver(callback){
