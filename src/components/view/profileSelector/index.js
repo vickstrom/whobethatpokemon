@@ -10,8 +10,7 @@ export default function ProfileSelectorView(props) {
                     {props.pokemon.map(pokemon => {
                         return (<div key={pokemon.id}
                             onClick={e => props.setPokemon(pokemon.id)}>
-                                <div className={`imageContainer ${(props.selectedPokemonId === pokemon.id ? 'selected' : 'unselected')}
-                                                    ${(props.selectedPokemonId !== pokemon.id) && (props.selectedPokemonId !== null) ? 'discarded' : ''}`}>
+                                <div className={`imageContainer ${(props.selectedPokemonId === pokemon.id ? 'selected' : 'unselected')}`}>
                                     <img src={pokemon.sprites.other["official-artwork"]["front_default"]}></img>
                                 </div>
                         </div>)

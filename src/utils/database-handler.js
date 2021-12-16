@@ -3,6 +3,7 @@ import { getAuth, signInWithPopup, signInAnonymously, GoogleAuthProvider } from 
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 import {ref, set, onValue, get, child} from "firebase/database";
+import { getRandomdIds } from './utils';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY, 
@@ -42,7 +43,7 @@ export class DatabaseHandler {
   }
   
   async createRoom(title) {
-    const ids = this.getRandomdIds(4);
+    const ids = getRandomdIds(4, 151);
     if (!title) {
       title = "No room name";
     }
@@ -68,16 +69,6 @@ export class DatabaseHandler {
     return onValue(roomRef, onValueFunction); 
   }
 
-  getRandomdIds(num_ids) {
-    const ids = []
-    while (ids.length < num_ids) {
-        const val = Math.floor(Math.random() * 151 + 1)
-        if (ids.filter((v) => v === val).length === 0)
-            ids.push(val);
-    }
-    return ids;
-  }
-
   async guess(guess_id, round_id, room_id) {
       return set(ref(this.database, `guesses/${this.user.uid}`), {
         guess: guess_id,
@@ -87,7 +78,7 @@ export class DatabaseHandler {
   }
 
   async startNewRound() {
-    const ids = this.getRandomdIds(4);
+    const ids = getRandomdIds(4, 151);
     return set(ref(this.database, `rooms/${this.user.uid}/current_guess`), {
       round_id: new Date().getTime(), 
       ids_to_guess_on: ids,

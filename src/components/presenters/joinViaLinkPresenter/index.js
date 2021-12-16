@@ -1,8 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../view/spinner';
 
-export default function JoinViaLinkFunction(props) {
+export default function JoinViaLinkView(props) {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function JoinViaLinkFunction(props) {
     return (
         <div>
             <p>Joining room...</p>
-            <img src={"http://www.csc.kth.se/~cristi/loading.gif"}></img>
+            <Spinner />
         </div>
     )
 }

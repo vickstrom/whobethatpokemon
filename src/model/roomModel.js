@@ -115,19 +115,3 @@ export default class Room {
         this.observers.forEach(cb=> cb(this));
     }
 }
-
-const getRandomdIds = (num_ids) => {
-    const ids = []
-    while (ids.length < num_ids) {
-        const val = Math.floor(Math.random() * 151 + 1)
-        if (ids.filter((v) => v === val).length === 0)
-            ids.push(val);
-    }
-    return ids;
-  }
-
-function between(min, max) {  
-    return Math.floor(
-        Math.random() * (max - min) + min
-    )
-}
