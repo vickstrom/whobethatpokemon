@@ -7,7 +7,7 @@ export default function LeaderBoardView(props) {
         return {
             name: props.users[player_id] ? props.users[player_id].display_name : 'Unknown',
             points: props.leaderboard[player_id],
-            avatarId: props.users[player_id] ? props.users[player_id].avatarId : 'Unknown'
+            avatar: props.users[player_id] ? props.users[player_id].avatar : 'Unknown'
         }
     })
 
@@ -24,7 +24,7 @@ export default function LeaderBoardView(props) {
                         <td>{index + 1}</td>
                         <td>{trainer.name}</td>
                         <td>{trainer.points}</td>
-                        <img src={trainer.avatarId}></img>
+                        <img src={trainer.avatar}></img>
                     </tr>)
                 })}
             </table>

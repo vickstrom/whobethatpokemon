@@ -17,10 +17,6 @@ export default function PlayPresenter(props) {
     const [ending, setEnding] = useState(props.model.currentRoom.ending);
     const [timeLeft, setTimeleft] = useState(false);
     const [copiedLink, setCopiedLink] = useState(null);
-    const getsprites = Promise.all(users.map(user => {return pokeAPI.getPokemon(user.avatar_id)}))
-    .then(pokemen => {console.log(pokemen);setPokemen(pokemen)})
-    .catch(error => {console.log(error)})
-    const getSprites = users => {users.map(user => {return {id: user.id, avatar: () => await }})};
 
     useEffect(() => {
         props.model.currentRoom.addObserver(() => {
@@ -47,7 +43,7 @@ export default function PlayPresenter(props) {
 
     const owner = props.model.currentRoom.users[props.model.currentRoom.id];
     
-
+    console.log(users);
     return (
         <div className={"play"}>
             <Window>
@@ -84,7 +80,7 @@ export default function PlayPresenter(props) {
                 </div>
             </Window>
             <Window>
-                <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} />
+                <LeaderBoardView users={users} leaderboard={leaderBoard} />
             </Window>
         </div>
     )
