@@ -22,17 +22,14 @@ export default function HomePresenter(props) {
             <div>
                 <LoginView 
                     onPlay={() => {
-                        props.model.localPlayerSignIn(name);
-                        props.model.databaseHandler.loginAsAnonymous().then((res) => {
-                            props.model.databaseHandler.getAccountDetails().then(snapshot => {
-                                if (snapshot.exists()) {
-                                    props.model.localPlayerSignIn("Anonymous", snapshot.val().uid)
+                        props.model.anonymousLogin().then(() => {
+                            props.model.loadAccountDetails().then(accountExists => {
+                                if (accountExists) {
                                     navigate('/room' + (id ? `?roomId=${id}` : ''));
                                 } else {
                                     navigate('/register' + (id ? `?roomId=${id}` : ''));
                                 }
-                            });
- 
+                            })
                         });
                     }}
                     onText={text => setName(text)}/> 
