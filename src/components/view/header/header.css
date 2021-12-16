@@ -10,6 +10,11 @@
     flex: 1;
 }
 
+.header > .back {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 
 .logged-in > div {
     display: flex;
@@ -21,8 +26,15 @@
     padding-right: 60px;
 }
 
+.header > .logo {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
 .header > .logo > img {
     width: 100%;
+    min-width: 500px;
     flex: 1;
 }
 
@@ -51,4 +63,13 @@
 .logged-in .user-info button {
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 900px) {
+
+  .header {
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
+  }
 }
