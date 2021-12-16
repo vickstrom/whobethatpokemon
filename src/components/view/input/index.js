@@ -1,6 +1,6 @@
 
 import './input.css';
 
-export default function Input({value, onChange, placeholder}) {
-    return <input onChange={(e) => onChange(e)} placeholder={placeholder} className="input-style"></input>
+export default function Input({value, onChange, placeholder, readOnly=false}) {
+    return <input value={value} onChange={(e) => onChange(e)} placeholder={placeholder} readOnly={readOnly} className="input-style"></input>
 }
