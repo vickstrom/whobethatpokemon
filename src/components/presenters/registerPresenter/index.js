@@ -27,7 +27,6 @@ export default function RegisterPresenter(props) {
                 pokemon={pokemen.map(e => e.data)}
                 setPokemon={id => setPokemonID(id)}
                 selectedPokemonId={pokemonID}
-                disabled= {pokemonID && (displayName.length > 3)? false :true}
             />
             <NameSelectorView
                 setDisplayName={name => setDisplayName(name)}
@@ -36,6 +35,7 @@ export default function RegisterPresenter(props) {
                         navigate('/room' + (id ? `?roomId=${id}` : ''));
                     });
                 console.log("register")}}
+                disabled= {pokemonID && (displayName.length > 3)? false :true}
             />
         </div>
          : <Spinner />
