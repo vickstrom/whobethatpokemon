@@ -13,12 +13,12 @@ export default function JoinViaLinkView(props) {
             navigate('/');
             return;
         }
-        if (!props.model.signedIn()) {
+        if (!props.model.databaseHandler.user) {
             navigate(`/?roomId=${id}`);
             return;
         }
         else {
-            props.model.joinRoom(this.model.userId, false);
+            props.model.joinRoom(props.model.databaseHandler.user.uid, false);
             navigate('/play');
             return;
         }

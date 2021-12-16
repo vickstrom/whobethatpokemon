@@ -42,13 +42,17 @@ export class DatabaseHandler {
     return get(child(dbRef, `users/${userId}`));
   }
   
-  async createRoom() {
+  async createRoom(title) {
     const ids = getRandomdIds(4, 151);
+    if (!title) {
+      title = "No room name";
+    }
     return set(ref(this.database, `rooms/${this.user.uid}`), {
+        title: title,
         current_guess: {
             round_id: Date.now(), 
             ids_to_guess_on: ids,
-            expected_id: ids[between(0, 4)],
+            expected_id: ids[between(0, 3)],
             ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000),
             player_scores: {}
         }
@@ -83,7 +87,7 @@ export class DatabaseHandler {
     return set(ref(this.database, `rooms/${this.user.uid}/current_guess`), {
       round_id: new Date().getTime(), 
       ids_to_guess_on: ids,
-      expected_id: ids[between(0, 4)],
+      expected_id: ids[between(0, 3)],
       ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000)
     });
   }
@@ -127,9 +131,44 @@ export class DatabaseHandler {
   }
 
   async loginAsAnonymous(call) {
-    const user_info = await signInAnonymously(this.auth);
-    this.user = user_info.user;
-    console.log('loginAsAnonUser', this.user);
-    return this.user;
+    const user_cred = await signInAnonymously(this.auth);
+    this.user = user_cred.user;
+    console.log(this.user);
+    console.log(this.user);
+    console.log(this.user);
+    return user_cred;
+    
   }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//signInAnonymously(auth)
+ // .then((res) => {
+      //createRoom(res.user.uid, 3);
+      //guess(res.user.uid, 2, 1638534876323, "")
+      //evaluateScores(res.user.uid, 2, 1638534876323);;
+      //setNewGuess(res.user.uid);
+      //const unsubcribe = subscribeToRoom();
+      //const unsub2 = subscribeToRooms();
+  //})
+  //.catch((error) => {
+    //const errorCode = error.code;
+    //const errorMessage = error.message;
+  //});
+
+
+

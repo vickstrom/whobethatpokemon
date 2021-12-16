@@ -5,53 +5,79 @@ export default class PokeModel{
     constructor(trainers={}, rooms={})
     {
         this.databaseHandler = new DatabaseHandler();
+        this.setTrainers(trainers);
+        this.setRooms(rooms);
         this.observers = [];
+        this.counter = 0; // Used for generating IDs, remove later (?)
+        let dummyRoomId = this.generateId(); // Remove later?
         this.currentRoom = null;
-        this.userId = null;
-        this.account = null;
     }
 
-    async anonymousLogin() {
-        const user = await this.databaseHandler.loginAsAnonymous();
-        this.userId = user.uid;
+    // Used for generating IDs, remove later (?)
+    generateId(){
+        const newId = this.counter;
+        this.counter++;
+        return newId;
     }
 
-    async loadAccountDetails() {
-        const account = await this.databaseHandler.getAccountDetails();
-        if (account.exists()) {
-            this.account = account;
-            return true;
-        } else {
-            return false;
-        }
+    setRooms(rooms){
+        this.rooms = rooms;
     }
 
-    signedIn() {
-        if (this.account) {
-            return true;
-        } else {
-            return false;
-        }
+    setTrainers(trainers){
+        this.trainers = trainers;
     }
 
-    async createAnonymousAccount(name, avatarId) {
-        await this.databaseHandler.setAccountDetails(name, avatarId);
-        await this.loadAccountDetails();
+    localPlayerSignIn(name, id) {
+        this.addNewTrainer(name, id);
     }
 
-    async createRoom() {
-        await this.databaseHandler.createRoom();
+    addNewTrainer(name, id){
+        const trainer = {id: id, name: name, points: 0};
+        this.trainers[id] = trainer;
+        this.notifyObservers();
+    }
+    
+    updateLeaderBoard(){
+        const leaderBoard = Object.values(this.trainers).map(trainer => {return {name: trainer.name, points: trainer.points}}).sort(compareScore);
+        this.leaderBoard = leaderBoard;
+        this.notifyObservers();
     }
 
     joinRoom(roomId, isAdmin=false) {
+        //this.addTrainerToRoom(trainerId, roomId);
         this.currentRoomId = roomId;
         this.currentRoom = new Room(this.databaseHandler, roomId, "Test", isAdmin);
         this.currentRoom.notifyObservers();
     }
 
+    addTrainerToRoom(trainerId, roomId){
+        // Very non-functional atm
+        this.rooms[roomId].trainers.push(this.trainers[trainerId]);
+        // this.rooms[roomId].numberOfTrainers++;
+        this.notifyObservers();
+    }
+
+    addRoom(room){
+        const rooms = {...this.rooms};
+        room.databaseHandler = this.databaseHandler;
+        rooms[room.id] = room;
+        this.rooms = rooms;
+        this.notifyObservers();
+    }
+
     async roomExists(roomId){
         const roomSnap = await this.databaseHandler.getRoom(roomId)
         return roomSnap.exists();
+    }
+
+    async newRound(roomId) {
+        await this.rooms[roomId].newRound();
+    }
+
+    // Returns [boolean, string]
+    guess(roomId, name) {
+        return this.rooms[roomId].guess(name);
     }
 
     addObserver(callback){
@@ -65,4 +91,28 @@ export default class PokeModel{
     notifyObservers(){
         this.observers.forEach(cb=> cb(this));
     }
+
+    setUnsubscribeRoomsHandler(unsub_cb) {
+        this.unsubRoomsHandler = unsub_cb;        
+    }
+
+    unsubscribeToRooms() {
+        if (this.unsubRoomsHandler) {
+            console.log(this.unsubRoomsHandler)
+            this.unsubRoomsHandler(); 
+        }  
+    }
+
+}
+
+function compareScore(a,b){
+    if(a.points < b.points)
+    return -1;
+ else if(a.points > b.points)
+     return 1;
+ if(a.name < b.name)
+     return -1;
+ else if(a.name > b.name)
+     return 1;
+ throw console.error("this is bad");
 }

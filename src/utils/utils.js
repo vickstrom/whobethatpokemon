@@ -10,7 +10,7 @@ export function getRandomdIds(num_ids, max_val) {
 }
 
 export function between(min, max) {  
-    // Returns an integer between min (inclusive) and max (exclusive)
+    // Returns an integer between min and max
     return Math.floor(
         Math.random() * (max - min) + min
     )
