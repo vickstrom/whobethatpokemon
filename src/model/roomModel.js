@@ -58,8 +58,8 @@ export default class Room {
              pokeAPI.getPokemon(alternativesIds[1]),
              pokeAPI.getPokemon(alternativesIds[2]),
              pokeAPI.getPokemon(alternativesIds[3])]);
-        
-        this.correctAnswer = alternativesPromise[0].data;
+        this.correctAnswer = alternativesPromise.filter(pokemon => pokemon.data.id === this.currentGuess.expected_id)[0].data;
+        //this.correctAnswer = alternativesPromise[0].data;
         this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);

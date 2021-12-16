@@ -3,7 +3,7 @@ import { getAuth, signInWithPopup, signInAnonymously, GoogleAuthProvider } from 
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 import {ref, set, onValue, get, child} from "firebase/database";
-import { getRandomdIds } from './utils';
+import { getRandomdIds, between } from './utils';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY, 
@@ -52,7 +52,7 @@ export class DatabaseHandler {
         current_guess: {
             round_id: Date.now(), 
             ids_to_guess_on: ids,
-            expected_id: ids[0],
+            expected_id: ids[between(0, 3)],
             ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000),
             player_scores: {}
         }
@@ -82,7 +82,7 @@ export class DatabaseHandler {
     return set(ref(this.database, `rooms/${this.user.uid}/current_guess`), {
       round_id: new Date().getTime(), 
       ids_to_guess_on: ids,
-      expected_id: ids[0],
+      expected_id: ids[between(0, 3)],
       ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000)
     });
   }
