@@ -34,7 +34,7 @@ function App(props) {
     <div className="App">
       <div className="App-body">
         <Router>
-          <Header />
+          <Header model={props.model} />
           <Routes>
             <Route path="/" element={
               <HomePresenter model={props.model}/>
