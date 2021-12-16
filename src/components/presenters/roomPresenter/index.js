@@ -8,7 +8,6 @@ export default function RoomPresenter(props) {
     const messages = ["room does not exist", ""]
     const navigate = useNavigate();
     const [joinRoomInput, setJoinRoomInput] = useState("");
-    const [createRoomInput, setCreateRoomInput] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const [message, setMessage] = useState("");
 
@@ -30,9 +29,6 @@ export default function RoomPresenter(props) {
                                 props.model.joinRoom(props.model.userId, true);
                                 navigate('/play');
                             })
-                    }}
-                    onChange={(e) => {
-                        setCreateRoomInput(e.target.value);
                     }} />
                     <JoinRoomView
                         message={message}
