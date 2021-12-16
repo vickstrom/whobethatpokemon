@@ -5,10 +5,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import './roomPresenter.css';
 
 export default function RoomPresenter(props) {
+    const messages = ["room does not exist", ""]
     const navigate = useNavigate();
     const [joinRoomInput, setJoinRoomInput] = useState("");
     const [createRoomInput, setCreateRoomInput] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         const joinRoomId = searchParams.get('roomId');
@@ -33,13 +35,24 @@ export default function RoomPresenter(props) {
                         setCreateRoomInput(e.target.value);
                     }} />
                     <JoinRoomView
-                        onChange={(e) => {
+                        message={message}
+                        onRoomName={(e) => {
                             setJoinRoomInput(e.target.value)
                         }}
                         onJoin={(roomId) => {
-                            props.model.joinRoom(joinRoomInput);
-                            navigate('/play');
-                        }} />
+                            //console.log(joinRoomInput);
+                            props.model.roomExists(joinRoomInput)
+                            .then(e => {
+                                //console.log(e);
+                                if(e){
+                                setMessage(messages[1]);
+                                props.model.joinRoom(joinRoomInput);
+                                navigate('/play');
+                            }else {
+                                setMessage(messages[0]);
+                            }})
+                        }}
+                        />
             </div>
         </div>
     )

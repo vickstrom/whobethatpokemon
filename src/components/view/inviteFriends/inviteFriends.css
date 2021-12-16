@@ -2,9 +2,13 @@
 .invite-friends {
     margin-top: 12px;;
     border-radius: 16px;
-    font-size: 12px;
+    font-size: 18px;
     padding: 12px 10px;
     display: flex; 
     flex-direction: column;
     align-items: center;
+}
+
+.invite-friends > div {
+    margin-bottom: 20px;
 }

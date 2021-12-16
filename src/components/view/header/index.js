@@ -6,11 +6,11 @@ export default function Header() {
     return (
         <div className={'header'}>
             <img src={logo} />
-            <div>
+            {/* <div>
                 <Link to="/">Home</Link>
                 <Link to="/play">Play</Link>
                 <Link to="/room">Room</Link>
-            </div>
+            </div> */}
         </div>
     )
 }

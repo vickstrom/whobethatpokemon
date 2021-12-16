@@ -1,4 +1,11 @@
 .nameSelector {
-    width: 20vw;
+    width: 40vw;
     margin-top: 10px;
+}
+
+@media only screen
+and (max-width : 1200px) {
+  .nameSelector {
+      width: 90vw;
+  }
 }

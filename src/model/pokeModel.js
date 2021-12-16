@@ -66,8 +66,9 @@ export default class PokeModel{
         this.notifyObservers();
     }
 
-    getRoom(roomId){
-        return this.rooms[roomId];
+    async roomExists(roomId){
+        const roomSnap = await this.databaseHandler.getRoom(roomId)
+        return roomSnap.exists();
     }
 
     async newRound(roomId) {
