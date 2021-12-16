@@ -8,6 +8,7 @@ import RegisterPresenter from './components/presenters/registerPresenter';
 import RoomPresenter from './components/presenters/roomPresenter'
 import JoinViaLinkPresenter from './components/presenters/joinViaLinkPresenter'
 import Header from './components/view/header';
+import { useLocation } from 'react-router-dom';
 
 import {
   BrowserRouter as Router,
@@ -17,19 +18,8 @@ import {
 
 function App(props) {
 
-  const [imageData, setImageData] = useState();
-  const [modifiedImageData, setModifiedImageData] = useState();
-
-  useEffect(() => {
-    pokeAPI.getPokemon(4).then(res => {
-      const img = res.data.sprites.other["official-artwork"]["front_default"];
-      setImageData(img);
-      ImageProcessing.getImageInSolidColor(img, 111, 111, 111).then(imgData => {
-        setModifiedImageData(imgData);
-      })
-    })
-  }, []);
   
+
   return (
     <div className="App">
       <div className="App-body">
