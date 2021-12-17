@@ -13,24 +13,18 @@ export default function Header(props) {
     const navigate = useNavigate();
 
     let redirectName = "";
-    if (location.pathname === "/register") {
-        redirectName = "Home";
-    }
-    else if (location.pathname === "/room") {
-        redirectName = "Home";
-    }
-    else if (location.pathname === "/play") {
+    if (location.pathname === "/play") {
         redirectName = "Rooms";
     }
+    else {
+        redirectName = "Home";
+    }
     const redirect = () => {
-        if (location.pathname === "/register") {
-            navigate("/");
-        }
-        else if (location.pathname === "/room") {
-            navigate("/");
-        }
-        else if (location.pathname === "/play") {
+        if (location.pathname === "/play") {
             navigate("/room");
+        }
+        else {
+            navigate('/');
         }
     }
 
@@ -40,13 +34,15 @@ export default function Header(props) {
     useEffect(() => {
         // Redirect from unallowed pages
         if(location.pathname === '/play' && !props.model.signedIn()) {
-            console.log('should redirect');
             navigate('/');
         }
-        if(location.pathname == '/register' && !props.model.hasUserId()) {
+        else if(location.pathname == '/register' && !props.model.hasUserId()) {
             navigate('/');
         }
-        if(location.pathname == '/room' && !props.model.signedIn()) {
+        else if(location.pathname == '/room' && !props.model.signedIn()) {
+            navigate('/');
+        }
+        else if(location.pathname !== '/join') {
             navigate('/');
         }
         props.model.addObserver(() => {
