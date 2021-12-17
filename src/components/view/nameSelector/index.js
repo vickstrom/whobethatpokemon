@@ -7,11 +7,16 @@ export default function NameSelectorView(props) {
     return (
         <div className={'nameSelector'}>
             <Window>
-                <h3 className={'header'}>Choose your trainer name:</h3>
-                <Input placeholder={props.displayName} maxLength={10} type="text" onChange={e => props.setDisplayName(e.target.value)} />
-                <Button color="green"
-                        disabled={props.disabled}
-                        onClick={()=> props.createAccount()}> Register</ Button>
+                <p>To register, name with at least 3 characters and an avatar</p>
+                <h3>Choose your trainer name</h3>
+                <div>
+                    <Input placeholder={props.displayName} maxLength={10} type="text" onChange={e => props.setDisplayName(e.target.value)} />
+                </div>
+                <div>
+                    <Button color="green"
+                            disabled={props.disabled}
+                            onClick={()=> props.createAccount()}> Register</ Button>
+                </div>
             </Window>
         </div>
     )
