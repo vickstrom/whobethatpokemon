@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import pokeAPI from "../../../utils/pokeapi";
+import {getRandomdIds} from "../../../utils/utils";
 import ProfileSelectorView from "../../view/profileSelector";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NameSelectorView from '../../view/nameSelector';
@@ -7,7 +8,6 @@ import Spinner from '../../view/spinner';
 import './registerPresenter.css';
 
 export default function RegisterPresenter(props) {
-    const randomIDs = Array.from({length: 100}, () => Math.floor(Math.random() * 898 + 1));
     const [displayName, setDisplayName] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -16,10 +16,15 @@ export default function RegisterPresenter(props) {
     const id = searchParams.get('roomId');
   
     useEffect(() => {
-        if(props.model.account){console.log(props.model.account);setDisplayName(props.model.account.display_name)};
-        Promise.all(randomIDs.map(id => {return pokeAPI.getPokemon(id)}))
-        .then(pokemen => {console.log(pokemen);setPokemen(pokemen)})
-        .catch(error => {console.log(error)})
+        if(props.model.account){
+            setDisplayName(props.model.account.display_name)
+        };
+        Promise.all(getRandomdIds(80, 151).map(id => {
+            return pokeAPI.getPokemon(id)} 
+        ))
+        .then(pokemen => {
+            setPokemen(pokemen)}
+            )
     }, []);
 
     return ( pokemen ?

@@ -83,7 +83,7 @@ export default function Header(props) {
                             </div>
                             <div>
                                 <p>{props.model.account.display_name}</p>
-                                <Button color={'grey'} onClick={() => {navigate(`/register`);}}>Edit profile</Button> 
+                                <Button color={'red'} onClick={() => {navigate(`/register`);}}>Edit profile</Button> 
                             </div> 
                         </div>
                     </Window>

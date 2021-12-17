@@ -51,6 +51,7 @@ export default class Room {
     async loadRoom(roomData) {
         this.roomData = roomData;
         //console.log(roomData);
+        this.myAnswer = -1;
         this.currentGuess = roomData.current_guess;
         const alternativesIds = this.currentGuess.ids_to_guess_on;
         let alternativesPromise = await Promise.all(
@@ -62,7 +63,7 @@ export default class Room {
         this.alternatives = alternativesPromise.map(pokemon => pokemon.data);
         this.answerPicture = this.correctAnswer.sprites.other["official-artwork"]["front_default"];
         this.questionPicture = await ImageProcessing.getImageInSolidColor(this.answerPicture, 111, 111, 111);
-        this.leaderBoard = roomData.players_scores ? roomData.players_scores : {[this.databaseHandler.user.uid]: 0};
+        this.leaderBoard = roomData.players_scores ? roomData.players_scores : {};
         //console.log(this.leaderBoard);
         //if(roomData.players_scores){console.log("yes!")}
         this.ending_at_time = this.currentGuess.ending_at_time;
