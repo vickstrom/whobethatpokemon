@@ -21,12 +21,12 @@ export default function InviteFriendsView(props) {
                 <h2>Play with friends</h2>
             </div>
             <div>
-                <Input type="text" value={`${baseURL}/?roomId=${props.roomId}`} readOnly={true}></Input>
+                <Input type="text" value={`${baseURL}/join?roomId=${props.roomId}`} readOnly={true}></Input>
             </div>
             <div>
             <Button color="green" onClick={() => {
                 if (window.isSecureContext) {
-                    navigator.clipboard.writeText(`${baseURL}/?roomId=${props.roomId}`)
+                    navigator.clipboard.writeText(`${baseURL}/join?roomId=${props.roomId}`)
                     props.copyLink(true)
                 }
                 else {
