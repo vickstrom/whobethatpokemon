@@ -63,8 +63,7 @@ export default function PlayPresenter(props) {
     }, []);
 
     
-    //console.log(users);
-    return (
+    return picture === null ? <Spinner></Spinner> : (
         <div className={"play"}>
             <Window>
                 <InviteFriendsView
