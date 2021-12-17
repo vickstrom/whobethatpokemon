@@ -13,9 +13,9 @@
     flex-wrap: wrap;
     justify-content: center;
     overflow-y: auto;
-    width: 80vw;
+    width: 50vw;
     min-height: 20%;
-    max-height: 50vh;
+    max-height: 30vh;
     scrollbar-color: #396bba grey;
     scrollbar-width: thin;
 }
@@ -27,8 +27,9 @@
     background-color: lightblue;
     border-radius: 15%;
     margin: 2px;
-    width: 150px;
-    height: 150px; 
+    width: 75px;
+    height: 75px; 
+    cursor: pointer;
 }
 
 @media only screen  

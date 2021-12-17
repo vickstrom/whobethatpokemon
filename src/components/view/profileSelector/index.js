@@ -6,7 +6,7 @@ export default function ProfileSelectorView(props) {
     return (
         <div className={'registerView'}>
             <Window>
-                <h3>Choose your profile avatar:</h3>
+                <h3>Choose your profile avatar</h3>
                 <div className={'pokeSelector'}>
                     {props.pokemon.map(pokemon => {
                         return (<div key={pokemon.id}

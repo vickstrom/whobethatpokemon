@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.play-split > div > h3 {
+    margin: 20px 0 0 0;
+}
+
 .play {
     display: flex;
     justify-content: space-evenly;
