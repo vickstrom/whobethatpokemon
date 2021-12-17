@@ -11,11 +11,12 @@ export default function PracticePresenter(props) {
     const navigate = useNavigate();
     const [pokemen, setPokemen] = useState(null);
     const [pokemonID, setPokemonID] = useState(1);
+    const [showNames, setShowNames] = useState(false);
     const id = searchParams.get('roomId');
   
     useEffect(() => {
         Promise.all(IDs.map(id => {return pokeAPI.getPokemon(id)}))
-        .then(pokemen => {console.log(pokemen);setPokemen(pokemen)})
+        .then(pokemen => {console.log(pokemen);setPokemen(pokemen);setShowNames(showNames)})
         .catch(error => {console.log(error)})
     }, []);
 
@@ -26,6 +27,8 @@ export default function PracticePresenter(props) {
                 setPokemon={id => setPokemonID(id)}
                 selectedPokemonId={pokemonID}
                 disabled= {pokemonID && (displayName.length > 3)? false :true}
+                selectedShowNames={showNames}
+                setShowNames={e => setShowNames(e)}
             />
         </div>
         :null
