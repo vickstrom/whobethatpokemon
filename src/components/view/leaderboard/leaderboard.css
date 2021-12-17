@@ -2,40 +2,20 @@
     text-align: center;
     background-color: white;
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 500;
 }
 
-.leaderboard h4 {
-    margin: 0;
+.leaderboard > table > tr:nth-child(even){
+    background-color: rgba(110, 110, 110, 0.1); 
 }
 
-.leaderboard > table {
-    border-collapse: collapse; 
-}
-
-.leaderboard > table > tr {
-    color: white;
-}
 
 .leaderboard > table > tr > td {
-    padding-right: 20px;
+    background-color: rgba(100, 100, 100, 0.10);
+    height: 30px;
 }
 
-.leaderboard > table > tr > td > p {
-    padding: 10px 20px;
-    border-radius: 160px;
-}
-
-
-.leaderboard > table > tr:first-child > td:last-child > p {
-    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
-}
-
-.leaderboard > table > tr:first-child > td:nth-child(2) > p {
-    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
-    
-}
-
-.leaderboard > table > tr > td > p {
-    background: linear-gradient(to bottom right, #25e1ff, #5a8dff);
+.leaderboardAvatar {
+    width: 100px;
+    height: 100px;;
 }

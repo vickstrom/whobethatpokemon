@@ -16,14 +16,15 @@ export default function LeaderBoardView(props) {
     return (
         <div className={'leaderboard'}>
             <h4>Leaderboard</h4>
-            <table>
+            <table className={'leaderboardTable'}>
                 {player_objects.map((trainer, index) => {
                     return (<tr key={trainer.player_id}>
-                        <td>
-                            <img src={trainer.avatar}></img>
-                        </td>
+                        <td>{index + 1}. </td>
                         <td><p>{trainer.name}</p></td>
-                        <td><p>{trainer.points}</p></td>           
+                        <td><p>{trainer.points}p</p></td>           
+                        <td>
+                            <img className="leaderboardAvatar" src={trainer.avatar}></img>
+                        </td>
                     </tr>)
                 })}
             </table>
