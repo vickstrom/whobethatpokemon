@@ -2,12 +2,22 @@
 svg {
   display: block;
   margin: 50px auto;
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
+  position:relative; /* or absolute */
+  top: -91.2%;
+  left: 51.65%;
+  z-index: 9999;
+  background-color: #ffffff;
+  border-radius: 250px;
 }
 
 #timer-border
-{ fill: rgb(130, 130, 130, 0.1) }
+{ fill: #5dff6b;
+  width: 200px; 
+}
 
 #timer
-{ fill: rgb(150, 150, 150, 0.1) }
+{ fill: #ffffff
+
+}
