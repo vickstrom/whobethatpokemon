@@ -51,6 +51,7 @@ export default class Room {
     async loadRoom(roomData) {
         this.roomData = roomData;
         //console.log(roomData);
+        this.myAnswer = -1;
         this.currentGuess = roomData.current_guess;
         const alternativesIds = this.currentGuess.ids_to_guess_on;
         let alternativesPromise = await Promise.all(
