@@ -16,6 +16,7 @@ export default function RegisterPresenter(props) {
     const id = searchParams.get('roomId');
   
     useEffect(() => {
+        if(props.model.account){console.log(props.model.account);setDisplayName(props.model.account.display_name)};
         Promise.all(randomIDs.map(id => {return pokeAPI.getPokemon(id)}))
         .then(pokemen => {console.log(pokemen);setPokemen(pokemen)})
         .catch(error => {console.log(error)})
@@ -30,12 +31,13 @@ export default function RegisterPresenter(props) {
             />
             <NameSelectorView
                 setDisplayName={name => setDisplayName(name)}
+                displayName={displayName}
                 createAccount={() => {
                     props.model.createAnonymousAccount(displayName, pokemonID).then(() => {
                         navigate('/room' + (id ? `?roomId=${id}` : ''));
                     });
                 console.log("register")}}
-                disabled= {pokemonID && (displayName.length > 3)? false :true}
+                disabled= {pokemonID && (displayName.length > 2)? false :true}
             />
         </div>
          : <Spinner />
