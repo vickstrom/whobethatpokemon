@@ -49,7 +49,7 @@ and (max-width : 1200px) {
 }
 
 .selected {
-    outline: 10px solid goldenrod;
+    outline: 10px solid rgb(108, 179, 197);
     position: relative;
     z-index: 10;
 }
