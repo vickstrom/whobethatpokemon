@@ -36,7 +36,7 @@ export default function PlayPresenter(props) {
         setOwner(props.model.currentRoom.users[props.model.currentRoom.id]);
         setIsAdmin(props.model.currentRoom.isAdmin);
         setRoomId(props.model.currentRoom.id);
-        setCorrectAnswer(props.model.currentRoom.expected_id);
+        setCorrectAnswer(props.model.currentRoom.correctAnswer);
         setUsers(props.model.currentRoom.users);
         props.model.currentRoom.addObserver(() => {
             setLeaderBoard(props.model.currentRoom.leaderBoard);
@@ -46,7 +46,7 @@ export default function PlayPresenter(props) {
             setEnding(props.model.currentRoom.ending);
             setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
             setOwner(props.model.currentRoom.users[props.model.currentRoom.id]);
-            setCorrectAnswer(props.model.currentRoom.expected_id);
+            setCorrectAnswer(props.model.currentRoom.correctAnswer);
             setUsers(props.model.currentRoom.users);
         });
 
