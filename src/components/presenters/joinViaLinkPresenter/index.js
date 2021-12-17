@@ -1,11 +1,13 @@
 import { useSearchParams } from 'react-router-dom'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../view/spinner';
 
-export default function JoinViaLinkView(props) {
+export default function JoinViaLinkPresenter(props) {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
+    const [roomExists, setRoomExists] = useState(true);
+
     useEffect(() => {
         const id = searchParams.get('roomId');
         console.log("id is: ", id);
@@ -13,20 +15,22 @@ export default function JoinViaLinkView(props) {
             navigate('/');
             return;
         }
-        if (!props.model.signedIn()) {
-            navigate(`/?roomId=${id}`);
-            return;
-        }
-        else {
-            props.model.joinRoom(this.model.userId, false);
-            navigate('/play');
-            return;
-        }
+        props.model.roomExists(id).then(exists => {
+            if (exists) {
+                navigate(`/?roomId=${id}`);
+            } else {
+                setRoomExists(false);
+            }
+            console.log('room exists ', roomExists);
+        })
     }, [])
     return (
         <div>
-            <p>Joining room...</p>
-            <Spinner />
+            <div hidden={!roomExists}> 
+                <h2>Joining room... {roomExists}</h2>
+                <Spinner />
+            </div>
+            <p hidden={roomExists} style={{color: 'red'}}>Error: the room you are trying to join does not exist</p>
         </div>
     )
 }
