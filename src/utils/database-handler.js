@@ -1,5 +1,5 @@
 
-import { getAuth, signInWithPopup, signInAnonymously, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInAnonymously} from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 import {ref, set, onValue, get, child} from "firebase/database";
@@ -112,7 +112,6 @@ export class DatabaseHandler {
               }
             }
           });
-          console.log("evaluating scores", score);
           return set(ref(this.database, `rooms/${user_id}/players_scores`), score);
         }).catch((error) => {
           console.error(error);
@@ -129,7 +128,6 @@ export class DatabaseHandler {
   async loginAsAnonymous(call) {
     const user_info = await signInAnonymously(this.auth);
     this.user = user_info.user;
-    console.log('loginAsAnonUser', this.user);
     return this.user;
   }
 }

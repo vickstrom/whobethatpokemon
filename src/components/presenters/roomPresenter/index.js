@@ -36,10 +36,8 @@ export default function RoomPresenter(props) {
                             setJoinRoomInput(e.target.value)
                         }}
                         onJoin={(roomId) => {
-                            //console.log(joinRoomInput);
                             props.model.roomExists(joinRoomInput)
                             .then(e => {
-                                //console.log(e);
                                 if(e){
                                 setMessage(messages[1]);
                                 props.model.joinRoom(joinRoomInput);

@@ -1,11 +1,10 @@
-import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import './header.css';
 import Window from '../window';
 import Button from '../button';
 import Spinner from '../spinner';
 import logo from '../../../img/whobethatpokemon.png';
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import pokeAPI from '../../../utils/pokeapi';
 
 export default function Header(props) {
@@ -28,7 +27,6 @@ export default function Header(props) {
         }
     }
 
-    const [signedIn, setSignedIn] = useState();
     const [avatar, setAvatar] = useState(null); 
 
     useEffect(() => {
@@ -36,10 +34,10 @@ export default function Header(props) {
         if(location.pathname === '/play' && !props.model.signedIn()) {
             navigate('/');
         }
-        else if(location.pathname == '/register' && !props.model.hasUserId()) {
+        else if(location.pathname === '/register' && !props.model.hasUserId()) {
             navigate('/');
         }
-        else if(location.pathname == '/room' && !props.model.signedIn()) {
+        else if(location.pathname === '/room' && !props.model.signedIn()) {
             navigate('/');
         }
         else if(location.pathname !== '/join') {
@@ -64,14 +62,14 @@ export default function Header(props) {
                 : null}
            </div>
             <div className='logo'>
-                <img src={logo} />
+                <img src={logo} alt="whobethatpokemon logo" />
             </div>
             <div className='logged-in'>
             {
                 props.model.signedIn() ?  
                     <Window>
                         <div className='user-image'>
-                            {avatar ? <img src={avatar.sprites.other["official-artwork"]["front_default"]} /> : <Spinner></Spinner>} 
+                            {avatar ? <img src={avatar.sprites.other["official-artwork"]["front_default"]} alt="pokemon" /> : <Spinner></Spinner>} 
                         </div>
                         <div className='user-info'>
                             <div>

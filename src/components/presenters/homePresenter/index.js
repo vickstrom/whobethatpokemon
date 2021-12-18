@@ -1,14 +1,12 @@
 import LoginView from '../../view/login';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './home.css';
-import Youtube from '../../view/youtube';
 import Spinner from '../../view/spinner';
 import pokeAPI from '../../../utils/pokeapi';
 import ImageProcessing from '../../../utils/image-processing';
 import {useState, useEffect} from 'react';
 
 export default function HomePresenter(props) {
-    const [name, setName] = useState('');
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('roomId');
@@ -50,7 +48,7 @@ export default function HomePresenter(props) {
                             })
                         });
                     }}
-                    onText={text => setName(text)}/> : <Spinner></Spinner>}
+                    /> : <Spinner></Spinner>}
             </div>
         </div>
     )

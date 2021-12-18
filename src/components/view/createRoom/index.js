@@ -1,5 +1,4 @@
 import './createRoom.css';
-import Input from '../input';
 import Button from '../button';
 import Window from '../window';
 

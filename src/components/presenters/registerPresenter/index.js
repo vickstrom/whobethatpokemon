@@ -43,8 +43,7 @@ export default function RegisterPresenter(props) {
                 createAccount={() => {
                     props.model.createAnonymousAccount(displayName, pokemonID).then(() => {
                         navigate('/room' + (id ? `?roomId=${id}` : ''));
-                    });
-                console.log("register")}}
+                    });}}
                 disabled= {pokemonID && (displayName.length > 2)? false :true}
             />
         </div>
