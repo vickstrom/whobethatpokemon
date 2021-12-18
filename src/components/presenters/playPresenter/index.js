@@ -14,7 +14,7 @@ export default function PlayPresenter(props) {
     const [picture, setPicture] = useState(null);
     const [myAnswer, setAnswer] = useState(null);
     const [ending, setEnding] = useState(null);
-    const [timeLeft, setTimeleft] = useState(false);
+    const [timeLeft, setTimeleft] = useState(1);
     const [copiedLink, setCopiedLink] = useState(null);
     const [isAdmin, setIsAdmin] = useState(null);
     const [roomId, setRoomId] = useState(null);
@@ -30,7 +30,6 @@ export default function PlayPresenter(props) {
         setAlternatives(props.model.currentRoom.alternatives);
         setAnswer(props.model.currentRoom.myAnswer);
         setEnding(props.model.currentRoom.ending);
-        setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
         setIsAdmin(props.model.currentRoom.isAdmin);
         setRoomId(props.model.currentRoom.id);
         setCorrectAnswer(props.model.currentRoom.correctAnswer);
@@ -47,7 +46,9 @@ export default function PlayPresenter(props) {
         });
 
         const timer = setInterval(() => {
-            setTimeleft(Math.max(0, Math.min(props.model.currentRoom.ending_at_time - Date.now(), 10*1000)));
+            if (props.model.currentRoom.ending_at_time) {
+                setTimeleft(Math.max(0, Math.min(props.model.currentRoom.ending_at_time - Date.now(), 10*1000)));
+            }
         }, 50);
         return () => {
             clearInterval(timer);

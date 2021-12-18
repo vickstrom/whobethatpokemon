@@ -17,7 +17,7 @@ export default function PieTimerView({ending, currentTime, totalTime}) {
 
     useEffect(() => {
         setSize(svg.current.clientWidth);
-    });
+    }, []);
 
     return (
         <svg ref={svg} viewBox={`0 0 ${size} ${size}`}>
