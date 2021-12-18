@@ -22,6 +22,10 @@
     font-weight: 500;
 }
 
+.home > div > .intro img {
+  width: 100%;
+}
+
 
 @media screen and (max-width: 900px) {
 
