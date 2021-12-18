@@ -31,6 +31,7 @@ export default function QuizAlternativesView(props) {
                     </div>
                     );
                 })} 
+                {props.children}
             </div>
         </div>
     )

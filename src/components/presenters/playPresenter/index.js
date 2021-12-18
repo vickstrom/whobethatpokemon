@@ -80,9 +80,6 @@ export default function PlayPresenter(props) {
                         <div>
                             <h3>{owner ? `${owner.display_name}\'s room` : 'Room'} </h3>
                         </div>
-                        <div>
-                            {<Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>}
-                        </div>
                     </div>
                     <div className={'mainView'}>
                         <Window>
@@ -90,6 +87,7 @@ export default function PlayPresenter(props) {
                         </Window>
                     </div>
                     {alternatives ?
+
                         <QuizAlternativesView
                             myAnswer={myAnswer}
                             ending={ending}
@@ -97,8 +95,9 @@ export default function PlayPresenter(props) {
                             alternatives={alternatives}
                             onGuess={(id) => {
                                 props.model.currentRoom.guess(id);
-                            }}/> :
-                        <Spinner />
+                            }}>
+                                <Timer ending={ending} currentTime={timeLeft} totalTime={10 * 1000}></Timer>
+                            </QuizAlternativesView> :<Spinner />
                     }
                 </div>
             </Window>
