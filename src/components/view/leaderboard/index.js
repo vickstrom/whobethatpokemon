@@ -15,17 +15,32 @@ export default function LeaderBoardView(props) {
     player_objects.sort((p1, p2) => p2.points-p1.points);
     return (
         <div className={'leaderboard'}>
-            <h4>Leaderboard</h4>
             <table>
-                {player_objects.map((trainer, index) => {
-                    return (<tr key={trainer.player_id}>
-                        <td>
-                            <img src={trainer.avatar}></img>
-                        </td>
-                        <td><p>{trainer.name}</p></td>
-                        <td><p>{trainer.points}</p></td>           
-                    </tr>)
-                })}
+                <thead>
+                    <tr> 
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Points</th>
+                        <th>Avatar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {player_objects.length > 0 ? player_objects.map((trainer, index) => {
+                        return (<tr key={trainer.player_id}>
+                            <td>{index + 1}</td>
+                            <td><p>{trainer.name}</p></td>
+                            <td><p>{trainer.points}p</p></td>           
+                            <td>
+                                <img src={trainer.avatar}></img>
+                            </td>
+                        </tr>)
+                    }) : <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>}
+                </tbody>
             </table>
         </div>
     )

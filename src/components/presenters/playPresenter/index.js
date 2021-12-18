@@ -75,11 +75,6 @@ export default function PlayPresenter(props) {
             </Window>
             <Window>
                 <div className={'play-split'}>
-                    <div className='play-header'>
-                        <div>
-                            <h3>{owner ? `${owner.display_name}\'s room` : 'Room'} </h3>
-                        </div>
-                    </div>
                     <div className={'mainView'}>
                         <Window>
                             <WhoPokemonView image={picture || <Spinner />} />
