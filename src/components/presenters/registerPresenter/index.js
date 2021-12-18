@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import pokeAPI from "../../../utils/pokeapi";
-import {getRandomdIds} from "../../../utils/utils";
+import {getImage, getRandomdIds} from "../../../utils/utils";
 import ProfileSelectorView from "../../view/profileSelector";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import NameSelectorView from '../../view/nameSelector';
@@ -23,7 +23,10 @@ export default function RegisterPresenter(props) {
             return pokeAPI.getPokemon(id)} 
         ))
         .then(pokemen => {
-            setPokemen(pokemen)}
+            Promise.all(pokemen.map((pokemon) => getImage(pokemon.data.sprites.other["official-artwork"]["front_default"]))).then(() => {
+                setPokemen(pokemen)
+            });
+        }
             )
     }, []);
 
