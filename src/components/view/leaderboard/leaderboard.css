@@ -6,36 +6,37 @@
 }
 
 .leaderboard h4 {
-    margin: 0;
-}
-
-.leaderboard > table {
-    border-collapse: collapse; 
-}
-
-.leaderboard > table > tr {
-    color: white;
-}
-
-.leaderboard > table > tr > td {
-    padding-right: 20px;
-}
-
-.leaderboard > table > tr > td > p {
-    padding: 10px 20px;
-    border-radius: 160px;
+    margin: 0 0 20px 0;
 }
 
 
-.leaderboard > table > tr:first-child > td:last-child > p {
-    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+.leaderboard table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.20);
 }
 
-.leaderboard > table > tr:first-child > td:nth-child(2) > p {
-    background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
-    
-}
-
-.leaderboard > table > tr > td > p {
+.leaderboard table thead tr {
     background: linear-gradient(to bottom right, #25e1ff, #5a8dff);
+    color: #ffffff;
+    text-align: left;
+    padding: 0px 15px;
+}
+
+.leaderboard table th,
+.leaderboard table td {
+    padding: 0px 0px;
+}
+
+.leaderboard table thead th,
+.leaderboard table thead td {
+    padding: 12px 15px;
+}
+
+.leaderboard table tbody tr {
+    border-bottom: 1px solid #dbd8d8;
+}
+
+.leaderboard table tbody tr:nth-of-type(even) {
+    background-color: #f5f5f5;
 }
