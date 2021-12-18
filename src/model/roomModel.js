@@ -16,6 +16,7 @@ export default class Room {
         this.expected_id = -1;
         this.users = {};
         this.currentRoundId = null;
+        this.picture = null;
 
 
         this.gameloop = setInterval(() => {
