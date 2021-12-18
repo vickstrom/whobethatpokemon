@@ -15,3 +15,16 @@ export function between(min, max) {
         Math.random() * (max - min) + min
     )
 }
+
+export const getImage = (url) => new Promise((res, rej) => {
+  const img = new Image();
+  img.addEventListener(
+      'load', 
+      () => res(img)
+  );
+  img.addEventListener(
+      'error', 
+      (err) => rej(err)
+  );
+  img.src = url;
+});
