@@ -6,6 +6,7 @@ import pokeAPI from '../../../utils/pokeapi';
 import ImageProcessing from '../../../utils/image-processing';
 import {useState, useEffect} from 'react';
 
+
 export default function HomePresenter(props) {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import pokeAPI from "../../../utils/pokeapi";
+import {getImage} from "../../../utils/utils";
 import PracticeSelectorView from "../../view/practiceSelector";
+import Spinner from '../../view/spinner';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './practicePresenter.css';
 
 
 export default function PracticePresenter(props) {
-    const IDs = Array.from({length: 898}, (_, i) => i + 1);
+    const IDs = Array.from({length: 151}, (_, i) => i + 1);
     const [displayName, setDisplayName] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -17,8 +19,14 @@ export default function PracticePresenter(props) {
   
     useEffect(() => {
         Promise.all(IDs.map(id => {return pokeAPI.getPokemon(id)}))
-        .then(pokemen => {console.log(pokemen);setPokemen(pokemen);setShowNames(showNames)})
-        .catch(error => {console.log(error)})
+        .then(pokemen => {
+            Promise.all(pokemen.map((pokemon) => getImage(pokemon.data.sprites.other["official-artwork"]["front_default"]))).then(() => {
+                setPokemen(pokemen);
+                setShowNames(showNames)
+            }
+            );
+        })
+            
     }, []);
 
     return ( pokemen ?
@@ -32,6 +40,5 @@ export default function PracticePresenter(props) {
                 setShowNames={e => setShowNames(e)}
             />
         </div>
-        :<img src="https://www.csc.kth.se/~cristi/loading.gif" >
-        </img>
+        : <Spinner></Spinner>  
     ) }
