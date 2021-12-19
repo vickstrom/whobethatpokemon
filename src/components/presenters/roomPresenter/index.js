@@ -4,6 +4,16 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './roomPresenter.css';
 
+const getRoomIdFromUrl = url => {
+    try {
+        const newrl = new URL(url);
+        const id = newrl.searchParams.get("roomId");
+        return id;
+        }catch{
+            return false;
+        }
+    }
+
 export default function RoomPresenter(props) {
     const messages = ["room does not exist", ""]
     const navigate = useNavigate();
@@ -35,17 +45,26 @@ export default function RoomPresenter(props) {
                         onRoomName={(e) => {
                             setJoinRoomInput(e.target.value)
                         }}
-                        onJoin={(roomId) => {
-                            props.model.roomExists(joinRoomInput)
-                            .then(e => {
-                                if(e){
-                                setMessage(messages[1]);
-                                props.model.joinRoom(joinRoomInput);
-                                navigate('/play');
-                            }else {
+                        onJoin={() => {
+                            if(joinRoomInput === ""){
                                 setMessage(messages[0]);
-                            }})
-                        }}
+                            }
+                            else{
+                                let room = joinRoomInput;
+                                const roomId = getRoomIdFromUrl(joinRoomInput);
+                                if(roomId){
+                                    room = roomId;
+                                }
+                                props.model.roomExists(room)
+                                .then(e => {
+                                    if(e){
+                                    setMessage(messages[1]);
+                                    props.model.joinRoom(room);
+                                    navigate('/play');
+                                }else {
+                                    setMessage(messages[0]);
+                                }})
+                            }}}
                         />
             </div>
         </div>
