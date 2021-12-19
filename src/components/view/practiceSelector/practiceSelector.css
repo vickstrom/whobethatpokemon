@@ -2,10 +2,10 @@
     height: 100%;
     width: 90%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .pokeSelectorPractice {
     padding-top: 7px;
     padding-bottom: 7px;
@@ -30,6 +30,10 @@
     margin: 2px;
     width: 100px;
     height: 100px; 
+}
+
+.imageContainerPractice:hover {
+    cursor: pointer;
 }
 
 @media only screen  
@@ -61,3 +65,12 @@ and (max-width : 800px) {
 .hide {
     display: none;
 }
+
+
+
+
+@media screen and (max-width: 900px) {
+    .practiceView {
+        flex-direction: column;
+    }
+  }
