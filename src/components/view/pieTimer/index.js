@@ -17,12 +17,12 @@ export default function PieTimerView({ending, currentTime, totalTime}) {
 
     useEffect(() => {
         setSize(svg.current.clientWidth);
-    });
+    }, []);
 
     return (
-        <svg ref={svg} viewbox={`0 0 ${size} ${size}`}>
-            <path d={draw()} id="timer-border" d={draw()} transform={`translate(${size / 2}, ${size / 2})`}/>
-            <path d={draw()} id="timer" d={draw()} transform={`translate(${size / 2}, ${size/ 2}) scale(.84)`}/>
+        <svg ref={svg} viewBox={`0 0 ${size} ${size}`}>
+            <path id="timer-border" d={draw()} transform={`translate(${size / 2}, ${size / 2})`}/>
+            <path id="timer" d={draw()} transform={`translate(${size / 2}, ${size/ 2}) scale(.84)`}/>
         </svg>
     )
 }

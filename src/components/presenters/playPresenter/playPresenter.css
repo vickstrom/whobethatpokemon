@@ -4,14 +4,25 @@
     align-items: center;
 }
 
+.play-split > div > h3 {
+    margin: 20px 0 0 0;
+}
+
 .play {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    height: 100%;
+    height: fit-content;
     width: 80%;
     margin: auto;
     color: rgb(173, 173, 173);
+}
+
+.play > div {
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .play-header {
@@ -34,6 +45,17 @@
     display: flex;
     flex-direction: column;
     max-width: 1200px;
+}
+
+@media screen and (max-width: 900px) {
+
+  .play {
+    flex-direction: column;
+  }
+  
+  .play > div {
+      margin-top: 20px;
+  }
 }
 
 

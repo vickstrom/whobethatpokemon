@@ -13,9 +13,9 @@
     flex-wrap: wrap;
     justify-content: center;
     overflow-y: auto;
-    width: 80vw;
+    width: 50vw;
     min-height: 20%;
-    max-height: 50vh;
+    max-height: 30vh;
     scrollbar-color: #396bba grey;
     scrollbar-width: thin;
 }
@@ -23,20 +23,23 @@
 .imageContainer {
     display: flex;
     justify-content: center;
-    padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
     background-color: lightblue;
     border-radius: 15%;
     margin: 2px;
-    width: 150px;
-    height: 150px; 
+    width: 75px;
+    height: 75px; 
+    cursor: pointer;
 }
 
 @media only screen  
-and (max-width : 800px) {
+and (max-width : 1200px) {
   .pokeImage {
     width: 300px;
     height: 300px;
+  }
+  .pokeSelector {
+    width: 90vw;
   }
 }
 
@@ -46,10 +49,7 @@ and (max-width : 800px) {
 }
 
 .selected {
-    outline: 10px solid goldenrod;
+    outline: 10px solid rgb(108, 179, 197);
     position: relative;
     z-index: 10;
-}
-
-.discarded {
 }

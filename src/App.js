@@ -1,7 +1,4 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import pokeAPI from './utils/pokeapi.js';
-import ImageProcessing from './utils/image-processing';
 import HomePresenter from './components/presenters/homePresenter';
 import PlayPresenter from './components/presenters/playPresenter';
 import RegisterPresenter from './components/presenters/registerPresenter';
@@ -18,24 +15,13 @@ import {
 
 function App(props) {
 
-  const [imageData, setImageData] = useState();
-  const [modifiedImageData, setModifiedImageData] = useState();
-
-  useEffect(() => {
-    pokeAPI.getPokemon(4).then(res => {
-      const img = res.data.sprites.other["official-artwork"]["front_default"];
-      setImageData(img);
-      ImageProcessing.getImageInSolidColor(img, 111, 111, 111).then(imgData => {
-        setModifiedImageData(imgData);
-      })
-    })
-  }, []);
   
+
   return (
     <div className="App">
       <div className="App-body">
         <Router>
-          <Header />
+          <Header model={props.model} />
           <Routes>
             <Route path="/" element={
               <HomePresenter model={props.model}/>

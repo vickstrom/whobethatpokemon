@@ -1,4 +1,20 @@
 .nameSelector {
-    width: 20vw;
+    width: 40vw;
     margin-top: 10px;
+}
+
+.nameSelector {
+  font-size: 16px;
+}
+
+.nameSelector button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media only screen
+and (max-width : 1200px) {
+  .nameSelector {
+      width: 90vw;
+  }
 }

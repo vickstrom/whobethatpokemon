@@ -27,7 +27,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-body {
@@ -35,6 +34,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   height: 100%;
+  color: grey;
 }
 
 .App-link {

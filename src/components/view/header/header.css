@@ -1,21 +1,72 @@
 
 .header {
-    padding: 20px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.header > img {
-    width: 800px;
+.header > div {
+    flex: 1;
 }
 
-.header > div  {
-    margin: 0;
+.header > .back {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.logged-in > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    float: right;
     padding: 0;
-    display: block;
+    padding-right: 60px;
 }
 
-.header > div > a {
-    color: white;
+.header > .logo {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.header > .logo > img {
+    width: 100%;
+    min-width: 500px;
+    flex: 1;
+}
+
+
+.logged-in .user-image > img {
+    width: 150px;
+}
+
+.logged-in .user-info {
+    text-align: left;
+}
+
+.logged-in .user-info p {
+    margin: 0;
+    font-size: 32px;
+}
+
+.logged-in .user-info h6 {
+    margin: 0;
     font-size: 18px;
-    text-decoration: none;
-    margin: 0px 25px;
+}
+
+.logged-in .user-info button {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 900px) {
+
+  .header {
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
+  }
 }

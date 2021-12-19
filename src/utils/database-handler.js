@@ -1,8 +1,9 @@
 
-import { getAuth, signInWithPopup, signInAnonymously, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInAnonymously} from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 import {ref, set, onValue, get, child} from "firebase/database";
+import { getRandomdIds, between } from './utils';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY, 
@@ -41,21 +42,22 @@ export class DatabaseHandler {
     return get(child(dbRef, `users/${userId}`));
   }
   
-  async createRoom(title) {
-    const ids = this.getRandomdIds(4);
-    if (!title) {
-      title = "No room name";
-    }
+  async createRoom() {
+    const ids = getRandomdIds(4, 151);
     return set(ref(this.database, `rooms/${this.user.uid}`), {
-        title: title,
         current_guess: {
             round_id: Date.now(), 
             ids_to_guess_on: ids,
-            expected_id: ids[0],
+            expected_id: ids[between(0, 4)],
             ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000),
             player_scores: {}
         }
     });
+  }
+
+  async getRoom(roomId) {
+    const dbRef = ref(this.database);
+    return get(child(dbRef, `rooms/${roomId}`));
   }
 
   async subscribeToRoom(roomId, onSnapchot) {
@@ -68,16 +70,6 @@ export class DatabaseHandler {
     return onValue(roomRef, onValueFunction); 
   }
 
-  getRandomdIds(num_ids) {
-    const ids = []
-    while (ids.length < num_ids) {
-        const val = Math.floor(Math.random() * 151 + 1)
-        if (ids.filter((v) => v === val).length === 0)
-            ids.push(val);
-    }
-    return ids;
-  }
-
   async guess(guess_id, round_id, room_id) {
       return set(ref(this.database, `guesses/${this.user.uid}`), {
         guess: guess_id,
@@ -87,11 +79,11 @@ export class DatabaseHandler {
   }
 
   async startNewRound() {
-    const ids = this.getRandomdIds(4);
+    const ids = getRandomdIds(4, 151);
     return set(ref(this.database, `rooms/${this.user.uid}/current_guess`), {
       round_id: new Date().getTime(), 
       ids_to_guess_on: ids,
-      expected_id: ids[0],
+      expected_id: ids[between(0, 4)],
       ending_at_time: Date.now() + (TIME_BETWEEN_EACH_ROUND * 1000)
     });
   }
@@ -108,7 +100,7 @@ export class DatabaseHandler {
           if (snapshot_guesses.exists())
             guesses = snapshot_guesses.val();
           Object.keys(guesses).forEach(player_id => {
-            if (guesses[player_id].room_id === user_id) {
+            if (guesses[player_id].room_id === user_id && guesses[player_id].round_id === round_id)  {
               let correct_answer = false;
               if (guesses[player_id].guess === expected_id && guesses[player_id].round_id === round_id)
                 correct_answer = true;
@@ -120,7 +112,6 @@ export class DatabaseHandler {
               }
             }
           });
-          console.log("evaluating scores", score);
           return set(ref(this.database, `rooms/${user_id}/players_scores`), score);
         }).catch((error) => {
           console.error(error);
@@ -135,44 +126,8 @@ export class DatabaseHandler {
   }
 
   async loginAsAnonymous(call) {
-    const user_cred = await signInAnonymously(this.auth);
-    this.user = user_cred.user;
-    console.log(this.user);
-    console.log(this.user);
-    console.log(this.user);
-    return user_cred;
-    
+    const user_info = await signInAnonymously(this.auth);
+    this.user = user_info.user;
+    return this.user;
   }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//signInAnonymously(auth)
- // .then((res) => {
-      //createRoom(res.user.uid, 3);
-      //guess(res.user.uid, 2, 1638534876323, "")
-      //evaluateScores(res.user.uid, 2, 1638534876323);;
-      //setNewGuess(res.user.uid);
-      //const unsubcribe = subscribeToRoom();
-      //const unsub2 = subscribeToRooms();
-  //})
-  //.catch((error) => {
-    //const errorCode = error.code;
-    //const errorMessage = error.message;
-  //});
-
-
-
