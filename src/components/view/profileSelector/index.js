@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './profileSelector.css';
 import Window from '../window';
 
@@ -12,7 +12,7 @@ export default function ProfileSelectorView(props) {
                         return (<div key={pokemon.id}
                             onClick={e => props.setPokemon(pokemon.id)}>
                                 <div className={`imageContainer ${(props.selectedPokemonId === pokemon.id ? 'selected' : 'unselected')}`}>
-                                    <img src={pokemon.sprites.other["official-artwork"]["front_default"]}></img>
+                                    <img src={pokemon.sprites.other["official-artwork"]["front_default"]} alt={pokemon.name}></img>
                                 </div>
                         </div>)
                     })}

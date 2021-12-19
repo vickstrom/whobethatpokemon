@@ -7,7 +7,6 @@ import Timer from "../../view/pieTimer"
 import InviteFriendsView from "../../view/inviteFriends";
 import Window from "../../view/window";
 import Spinner from "../../view/spinner";
-import { useNavigate } from 'react-router-dom';
 
 export default function PlayPresenter(props) {
     const [leaderBoard, setLeaderBoard] = useState(null);
@@ -15,9 +14,8 @@ export default function PlayPresenter(props) {
     const [picture, setPicture] = useState(null);
     const [myAnswer, setAnswer] = useState(null);
     const [ending, setEnding] = useState(null);
-    const [timeLeft, setTimeleft] = useState(false);
+    const [timeLeft, setTimeleft] = useState(1);
     const [copiedLink, setCopiedLink] = useState(null);
-    const [owner, setOwner] = useState(null);
     const [isAdmin, setIsAdmin] = useState(null);
     const [roomId, setRoomId] = useState(null);
     const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -32,8 +30,6 @@ export default function PlayPresenter(props) {
         setAlternatives(props.model.currentRoom.alternatives);
         setAnswer(props.model.currentRoom.myAnswer);
         setEnding(props.model.currentRoom.ending);
-        setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
-        setOwner(props.model.currentRoom.users[props.model.currentRoom.id]);
         setIsAdmin(props.model.currentRoom.isAdmin);
         setRoomId(props.model.currentRoom.id);
         setCorrectAnswer(props.model.currentRoom.correctAnswer);
@@ -45,13 +41,14 @@ export default function PlayPresenter(props) {
             setAnswer(props.model.currentRoom.myAnswer);
             setEnding(props.model.currentRoom.ending);
             setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
-            setOwner(props.model.currentRoom.users[props.model.currentRoom.id]);
             setCorrectAnswer(props.model.currentRoom.correctAnswer);
             setUsers(props.model.currentRoom.users);
         });
 
         const timer = setInterval(() => {
-            setTimeleft(Math.max(0, Math.min(props.model.currentRoom.ending_at_time - Date.now(), 10*1000)));
+            if (props.model.currentRoom.ending_at_time) {
+                setTimeleft(Math.max(0, Math.min(props.model.currentRoom.ending_at_time - Date.now(), 10*1000)));
+            }
         }, 50);
         return () => {
             clearInterval(timer);

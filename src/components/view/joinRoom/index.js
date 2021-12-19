@@ -15,7 +15,7 @@ export default function JoinRoomView(props) {
             <div>
                 <Button color="red" onClick={e => props.onJoin(e)}>Join</Button>
             </div>
-            <div class="message">
+            <div className="message">
             {props.message}
             </div>
         </Window>        

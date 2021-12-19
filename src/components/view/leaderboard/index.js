@@ -31,7 +31,7 @@ export default function LeaderBoardView(props) {
                             <td><p>{trainer.name}</p></td>
                             <td><p>{trainer.points}p</p></td>           
                             <td>
-                                <img src={trainer.avatar}></img>
+                                <img src={trainer.avatar} alt="profile avatar"></img>
                             </td>
                         </tr>)
                     }) : <tr>

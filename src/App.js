@@ -1,14 +1,10 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import pokeAPI from './utils/pokeapi.js';
-import ImageProcessing from './utils/image-processing';
 import HomePresenter from './components/presenters/homePresenter';
 import PlayPresenter from './components/presenters/playPresenter';
 import RegisterPresenter from './components/presenters/registerPresenter';
 import RoomPresenter from './components/presenters/roomPresenter'
 import JoinViaLinkPresenter from './components/presenters/joinViaLinkPresenter'
 import Header from './components/view/header';
-import { useLocation } from 'react-router-dom';
 
 import {
   BrowserRouter as Router,

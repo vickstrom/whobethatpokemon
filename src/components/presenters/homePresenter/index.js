@@ -1,14 +1,12 @@
 import LoginView from '../../view/login';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './home.css';
-import Youtube from '../../view/youtube';
 import Spinner from '../../view/spinner';
 import pokeAPI from '../../../utils/pokeapi';
 import ImageProcessing from '../../../utils/image-processing';
 import {useState, useEffect} from 'react';
 
 export default function HomePresenter(props) {
-    const [name, setName] = useState('');
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const id = searchParams.get('roomId');
@@ -31,7 +29,7 @@ export default function HomePresenter(props) {
             <div>
                 <div className={'intro'}>
                     <h1>What is this for masterpiece?</h1>
-                    <img src="https://cdn.vox-cdn.com/thumbor/IhuPwFLVg19jF8B6rSmpy5T1-tY=/0x0:1920x1080/1400x788/filters:focal(807x387:1113x693):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/53254027/who_pokemon.0.jpg" />
+                    <img alt="tv show segment" src="https://cdn.vox-cdn.com/thumbor/IhuPwFLVg19jF8B6rSmpy5T1-tY=/0x0:1920x1080/1400x788/filters:focal(807x387:1113x693):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/53254027/who_pokemon.0.jpg" />
                     <p>Are you tired of adulthood and want to re-experience your childhood? Well, we got the right solution for you. Introducing the revolutionary game, Who is the Pokémon?</p>
                 </div>
             </div>
@@ -50,7 +48,7 @@ export default function HomePresenter(props) {
                             })
                         });
                     }}
-                    onText={text => setName(text)}/> : <Spinner></Spinner>}
+                    /> : <Spinner></Spinner>}
             </div>
         </div>
     )

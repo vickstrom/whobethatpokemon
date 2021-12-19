@@ -10,7 +10,6 @@ export default function JoinViaLinkPresenter(props) {
 
     useEffect(() => {
         const id = searchParams.get('roomId');
-        console.log("id is: ", id);
         if (!id) {
             navigate('/');
             return;
@@ -21,7 +20,6 @@ export default function JoinViaLinkPresenter(props) {
             } else {
                 setRoomExists(false);
             }
-            console.log('room exists ', roomExists);
         })
     }, [])
     return (

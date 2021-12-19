@@ -68,7 +68,7 @@ export default class PokeModel{
     }
 
     removeObserver(callback){
-        this.observers = this.observers.filter(observer => observer != callback);
+        this.observers = this.observers.filter(observer => observer !== callback);
     }
 
     notifyObservers(){

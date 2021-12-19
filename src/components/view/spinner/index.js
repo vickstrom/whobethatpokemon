@@ -1,8 +1,8 @@
 import './spinner.css'
 
 export default function Spinner() {
-    return (<div class="spin">
-                <div class="spinner">
+    return (<div className="spin">
+                <div className="spinner">
 
                 </div>
             </div>)
