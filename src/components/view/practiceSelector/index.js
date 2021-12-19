@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './practiceSelector.css';
 import Window from '../window';
 import Button from '../button';
@@ -20,7 +20,7 @@ export default function PracticeSelectorView(props) {
             <Window>
                 <h2>{capitalizeFirstLetter(props.pokemon[props.selectedPokemonId-1].name)}</h2>
                 <div>
-                    <img src={props.pokemon[props.selectedPokemonId-1].sprites.other["official-artwork"]["front_default"]} />
+                    <img alt={props.pokemon[props.selectedPokemonId-1].name} src={props.pokemon[props.selectedPokemonId-1].sprites.other["official-artwork"]["front_default"]} />
                 </div>
                 <Button color="red" onClick={e => props.setShowNames(!props.selectedShowNames)}>Show Names</Button>
             </Window>
@@ -31,7 +31,7 @@ export default function PracticeSelectorView(props) {
                             onClick={e => props.setPokemon(pokemon.id)}>
                                 <div className={`imageContainerPractice ${(props.selectedPokemonId === pokemon.id ? 'selectedPractice' : 'unselectedPractice')}
                                                     ${(props.selectedPokemonId !== pokemon.id) && (props.selectedPokemonId !== null) ? 'discarded' : ''}`}>
-                                        <img src={pokemon.sprites.other["official-artwork"]["front_default"]}></img>
+                                        <img alt={pokemon.name} src={pokemon.sprites.other["official-artwork"]["front_default"]}></img>
                                 </div>
                                 <div>
                                     <div className={`imageName ${(props.selectedShowNames ? '' : 'hide')}`}>{capitalizeFirstLetter(pokemon.name)}</div>
