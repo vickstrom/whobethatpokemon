@@ -71,6 +71,7 @@ export default class Room {
             this.currentRoundId = this.currentGuess.round_id;
             this.ending = false;
         }
+        this.guess(0);
         this.notifyObservers();
     }
 
