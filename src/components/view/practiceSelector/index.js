@@ -10,9 +10,9 @@ function capitalizeFirstLetter(string) {
     else {
         return ' ';
     }
-
-
   }
+
+  
 
 export default function PracticeSelectorView(props) {
     return (

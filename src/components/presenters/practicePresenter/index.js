@@ -4,6 +4,7 @@ import PracticeSelectorView from "../../view/practiceSelector";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './practicePresenter.css';
 
+
 export default function PracticePresenter(props) {
     const IDs = Array.from({length: 898}, (_, i) => i + 1);
     const [displayName, setDisplayName] = useState("");
@@ -31,5 +32,6 @@ export default function PracticePresenter(props) {
                 setShowNames={e => setShowNames(e)}
             />
         </div>
-        :null
+        :<img src="https://www.csc.kth.se/~cristi/loading.gif" >
+        </img>
     ) }
