@@ -2,6 +2,7 @@ import './App.css';
 import HomePresenter from './components/presenters/homePresenter';
 import PlayPresenter from './components/presenters/playPresenter';
 import RegisterPresenter from './components/presenters/registerPresenter';
+import PracticePresenter from './components/presenters/practicePresenter';
 import RoomPresenter from './components/presenters/roomPresenter'
 import JoinViaLinkPresenter from './components/presenters/joinViaLinkPresenter'
 import Header from './components/view/header';
@@ -33,6 +34,9 @@ function App(props) {
             } /> 
             <Route path="/register" element={
               <RegisterPresenter model={props.model}/>
+            } /> 
+            <Route path="/practice" element={
+              <PracticePresenter model={props.model}/>
             } /> 
             <Route path="/join" element={
               <JoinViaLinkPresenter model={props.model} />
