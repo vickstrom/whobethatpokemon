@@ -28,9 +28,12 @@ export default function HomePresenter(props) {
         <div className={'home'}>
             <div>
                 <div className={'intro'}>
-                    <h1>What is this for masterpiece?</h1>
+                    <h1>Who's that Pokémon? It's...</h1>
                     <img alt="tv show segment" src="https://cdn.vox-cdn.com/thumbor/IhuPwFLVg19jF8B6rSmpy5T1-tY=/0x0:1920x1080/1400x788/filters:focal(807x387:1113x693):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/53254027/who_pokemon.0.jpg" />
-                    <p>Are you tired of adulthood and want to re-experience your childhood? Well, we got the right solution for you. Introducing the revolutionary game, Who is the Pokémon?</p>
+            
+                    <p>Are you tired of adulthood and want to re-experience your childhood? This might just be the game for you!</p>
+                    <p>Introducing: <b>Who Be That Pokémon?</b></p>
+                    <p> A game that is similar, <b>but legally distinct</b>, from something you might remember from your childhood.</p>
                 </div>
             </div>
             <div>

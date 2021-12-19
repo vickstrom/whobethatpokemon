@@ -10,7 +10,7 @@ export default function JoinRoomView(props) {
                 <h3>Join room</h3>
             </div>
             <div>
-                <Input placeholder={'Room id'} onChange={e => {props.onRoomName(e)}} />
+                <Input placeholder={'Link or Room ID'} onChange={e => {props.onRoomName(e)}} />
             </div>
             <div>
                 <Button color="red" onClick={e => props.onJoin(e)}>Join</Button>
