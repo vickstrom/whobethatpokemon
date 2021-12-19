@@ -18,8 +18,9 @@ export default function PracticeSelectorView(props) {
     return (
         <div className={'practiceView'}>
             <Window>
-                <div className={'pokeSelectorPractice'}>Practice</div>
-                <div>Selected Pokemon: {capitalizeFirstLetter(props.pokemon[props.selectedPokemonId-1].name)}</div>
+                <h2 className={'pokeSelectorPractice'}>Practice</h2>
+                <h2>{capitalizeFirstLetter(props.pokemon[props.selectedPokemonId-1].name)}</h2>
+                <img src={props.pokemon[props.selectedPokemonId-1].sprites.other["official-artwork"]["front_default"]}></img>
                 <Button color="red" onClick={e => props.setShowNames(!props.selectedShowNames)}>Show Names</Button>
             </Window>
             <Window>
