@@ -35,14 +35,16 @@ export default function PlayPresenter(props) {
         setCorrectAnswer(props.model.currentRoom.correctAnswer);
         setUsers(props.model.currentRoom.users);
         props.model.currentRoom.addObserver(() => {
-            setLeaderBoard(props.model.currentRoom.leaderBoard);
-            setPicture(props.model.currentRoom.picture);
-            setAlternatives(props.model.currentRoom.alternatives);
-            setAnswer(props.model.currentRoom.myAnswer);
-            setEnding(props.model.currentRoom.ending);
-            setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
-            setCorrectAnswer(props.model.currentRoom.correctAnswer);
-            setUsers(props.model.currentRoom.users);
+            if (props.model.currentRoom) {
+                setLeaderBoard(props.model.currentRoom.leaderBoard);
+                setPicture(props.model.currentRoom.picture);
+                setAlternatives(props.model.currentRoom.alternatives);
+                setAnswer(props.model.currentRoom.myAnswer);
+                setEnding(props.model.currentRoom.ending);
+                setTimeleft((props.model.currentRoom.ending_at_time - Date.now()));
+                setCorrectAnswer(props.model.currentRoom.correctAnswer);
+                setUsers(props.model.currentRoom.users);
+            }
         });
 
         const timer = setInterval(() => {
@@ -53,7 +55,7 @@ export default function PlayPresenter(props) {
         return () => {
             clearInterval(timer);
             if (props.model.currentRoom) {
-                props.model.currentRoom.leaveRoom(); 
+                props.model.currentRoom.leaveRoom();
                 props.model.currentRoom = null;
             }
         }
