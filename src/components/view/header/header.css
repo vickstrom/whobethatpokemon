@@ -38,9 +38,6 @@
     flex: 1;
 }
 
-.header > .logged-in  {
-    padding: 20px;
-}
 
 .logged-in .user-image > img {
     width: 150px;

@@ -18,6 +18,13 @@
     color: rgb(173, 173, 173);
 }
 
+.play > div {
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .play-header {
     display: flex;
     padding: 0px 40px;
