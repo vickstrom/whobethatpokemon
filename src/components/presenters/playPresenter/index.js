@@ -62,6 +62,7 @@ export default function PlayPresenter(props) {
     
     return picture === null ? <Spinner></Spinner> : (
         <div className={"play"}>
+            <div>
             <Window>
                 <InviteFriendsView
                     hidden={!isAdmin}
@@ -70,6 +71,8 @@ export default function PlayPresenter(props) {
                     hasCopied={copiedLink}
                 />
             </Window>
+            </div>
+            <div>
             <Window>
                 <div className={'play-split'}>
                     <div className={'mainView'}>
@@ -92,12 +95,15 @@ export default function PlayPresenter(props) {
                     }
                 </div>
             </Window>
+            </div>
+            <div>
             <Window>
                 {users ?
                     <LeaderBoardView users={props.model.currentRoom.users} leaderboard={leaderBoard} /> :
                     <Spinner />
                 }
             </Window>
+            </div>
         </div>
     )
 }

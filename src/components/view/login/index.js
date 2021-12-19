@@ -11,11 +11,8 @@ export default function LoginView(props) {
                     <img className={'top'} src={props.hiddenPokemonImage} alt="the random pokemon as hidden" />
                 </div>
                 <h1>Ready to play?</h1>
-                    
-                <p>Please login</p>
-                <Button color="red" onClick={e => props.onPlay()}>Google Account</Button>
-                <p>or be</p>
-                <Button color="grey" onClick={e => props.onPlay()}>Anonymous</Button>
+                <p>Login in as</p>
+                <Button color="red" onClick={e => props.onPlay()}>Anonymous</Button>
             </div>
         </Window>
         )
