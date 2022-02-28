@@ -4,6 +4,7 @@
 
 This is a trivia adapation of the popular scene from the Pokémon tv-series. Given the contours of a Pokémon, you are supposed the identify which one it is by choosing between four names. Right now, there exist a singleplayer variant of the game, however a multiplayer version where you compete with your friends is the final goal. 
 
+![video demonstration](./img/whobethatpokemon.gif)
 
 ## Project Structure
 
